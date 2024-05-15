@@ -1,0 +1,15 @@
+
+.pageHeader_Wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 160px;
+    width: 100%;
+    
+    border-bottom: 1px solid #00babb;
+
+    background-color: #000000;
+    color: #ffffff;
+}
