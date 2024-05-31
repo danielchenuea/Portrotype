@@ -2,6 +2,7 @@ import GeradorCarrosselImagens from "../Utils/GeradorCarrosselImagens.js";
 let geradorCarrossel = null;
 $(function () {
     preLoadPage();
+    afterLoadPage();
 });
 function preLoadPage() {
     document.querySelectorAll('[data-include]').forEach((el) => {

@@ -1,6 +1,8 @@
 export default class GeradorCarrosselImagens {
     constructor(options) {
         this.n_Imagens = 3;
+        this.imagemPadrao = 0;
+        this.paginaAtual = 0;
         this.delayDefault = 500;
         this.imagensArray = [
             {
@@ -27,23 +29,63 @@ export default class GeradorCarrosselImagens {
         if (div) {
             const mainModalDiv = document.createElement("div");
             mainModalDiv.classList.add("carrosselWrapper");
-            mainModalDiv.id = this.idDiv;
+            mainModalDiv.id = "carrosselWrapper";
             mainModalDiv.innerHTML = `
-            <div class="carrosselWrapper" id="carrosselWrapper">
-                <div class="imageRoller">
-                    ${this.Convert_CarrosselImagens_To_Html(this.GenerateCloneImages(this.imagensArray))}
+            <div class="imageWrapper" id="imageWrapper">
+                <div class="imageSubWrapper" id="imageSubWrapper">
+                    ${this.Convert_CarrosselImagens_To_Html(this.imagensArray)}
                 </div>
-                <div class="carrosselButtons">
-                    <
-                </div>
+            </div>
+            <div class="carrosselButtons">
+                ${this.Convert_CarrosselImagens_To_Buttons(this.imagensArray)}
             </div>
             `;
             div.appendChild(mainModalDiv);
-            return this;
         }
+        console.log(1);
+        this.JQueryOnLoad();
         return this;
     }
-    GenerateCarrosselButtons() {
+    JQueryOnLoad() {
+        console.log(12);
+        let classThis = this;
+        $(`#carrosselWrapper`).on("click", ".carrosselPageIndicator", function () {
+            console.log(123);
+            classThis.ManipularPagina(parseInt($(this).attr("data-page")));
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+        });
+        let container = document.getElementById("imageWrapper");
+        let innerContainer = document.getElementById("imageSubWrapper");
+        let pressed = false;
+        let startX = 0;
+        let x = 0;
+        container.addEventListener("mousedown", (e) => {
+            pressed = true;
+            startX = e.offsetX - innerContainer.offsetLeft;
+            container.style.cursor = "grabbing";
+        });
+        container.addEventListener("mouseenter", () => {
+            container.style.cursor = "grab";
+        });
+        container.addEventListener("mouseup", () => {
+            container.style.cursor = "grab";
+            pressed = false;
+        });
+        container.addEventListener("mousemove", (e) => {
+            if (!pressed)
+                return;
+            e.preventDefault();
+            x = e.offsetX;
+            innerContainer.style.left = `${x - startX}px`;
+        });
+    }
+    Convert_CarrosselImagens_To_Buttons(imagemArray) {
+        let output = "";
+        imagemArray.forEach((img, i) => {
+            output += `<div class="carrosselPageIndicator${this.imagemPadrao == i ? " active" : ""}" id='carrossel${i}' data-page='${i}'></div>`;
+        });
+        return output;
     }
     GenerateCloneImages(imagemArray) {
         let i = 0;
@@ -59,8 +101,23 @@ export default class GeradorCarrosselImagens {
     Convert_CarrosselImagens_To_Html(imagemArray) {
         let output = "";
         imagemArray.forEach((img, i) => {
-            output += `<img class='${img.isClone ? "clone" : ""}' src='${img.src}'></img>`;
+            output += `<img draggable="false" class='${img.isClone ? "clone" : ""}' src='${img.src}'></img>`;
         });
         return output;
+    }
+    ProximaPagina() {
+        this.ManipularPagina(1);
+    }
+    VoltarPagina() {
+        this.ManipularPagina(-1);
+    }
+    ManipularPagina(pagina) {
+        if (this.imagensArray === undefined)
+            return;
+        console.log();
+        const div = document.getElementById(`imageSubWrapper`);
+        div.style.transform = `translate(-${pagina * 100}%, 0px)`;
+    }
+    Converter_Imagem_To_LeftSpacing() {
     }
 }

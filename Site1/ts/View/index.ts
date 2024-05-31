@@ -4,7 +4,7 @@ let geradorCarrossel: GeradorCarrosselImagens | null = null;
 
 $(function() {
   preLoadPage();
-  // afterLoadPage();
+  afterLoadPage();
 });
 
 function preLoadPage(){

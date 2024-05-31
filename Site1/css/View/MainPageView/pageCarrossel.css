@@ -6,11 +6,25 @@
 }
 
 .imageWrapper{
+    width: fit-content;
+    min-width: fit-content;
     display: flex;
     flex-direction: row;
+    position: relative;
+    transition: 0.2s all ease-in-out;
+    overflow-x: hidden;
 }
-.imageWrapper > img{
-    width: 100%;
+
+.imageSubWrapper{
+    width: fit-content;
+    min-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    transition: 0.2s all ease-in-out;
+}
+.imageSubWrapper > img{
+    width: auto;
     height: auto;
 
     transition: 0.2s all ease-in-out;
@@ -28,7 +42,7 @@
 .carrosselPageIndicator{
     margin: 0px 5px;
     width: 20px;
-    height: 20px;
+    height: 14px;
     background-color: #cccccc;
     border-radius: 20px;
     transition: 0.2s all ease-in-out;
