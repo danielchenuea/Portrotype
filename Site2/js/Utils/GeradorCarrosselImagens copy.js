@@ -49,8 +49,8 @@ export default class GeradorCarrosselImagens {
             </div>
             `;
             div.appendChild(mainModalDiv);
-            this.EventsOnLoad();
         }
+        this.EventsOnLoad();
         return this;
     }
     EventsOnLoad() {

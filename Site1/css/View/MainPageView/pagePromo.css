@@ -1,0 +1,15 @@
+
+.imagemWrapper{
+    width: fit-content;
+    min-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    transition: 0.2s all ease-in-out;
+}
+.imagemWrapper > img{
+    width: 100%;
+    height: auto;
+    user-select: none;
+    transition: 0.2s all ease-in-out;
+}

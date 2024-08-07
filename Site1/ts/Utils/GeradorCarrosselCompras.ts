@@ -1,6 +1,6 @@
 
 
-export interface CarrosselImagem {
+export interface CarrosselCompra {
     url: string
     src: string
     ordem?: number
@@ -9,14 +9,14 @@ export interface CarrosselImagem {
     delay?: number
 }
 
-export interface GeradorCarrosselImagens_Constructor{
+export interface GeradorCarrosselCompras_Constructor{
     idDiv: string
-    imagens: CarrosselImagem[]
+    imagens: CarrosselCompra[]
 }
 
-export default class GeradorCarrosselImagens{
+export default class GeradorCarrosselCompras{
 
-    constructor (options: GeradorCarrosselImagens_Constructor) {
+    constructor (options: GeradorCarrosselCompras_Constructor) {
         this.idDiv = options.idDiv;
 
         this.SetScreenWidth();
@@ -36,7 +36,7 @@ export default class GeradorCarrosselImagens{
 
     delayDefault: number = 500;
 
-    imagensArray: CarrosselImagem[] = [
+    imagensArray: CarrosselCompra[] = [
         {
             url: "1",
             src: "src/images/carrossel1.jpg",
@@ -60,7 +60,6 @@ export default class GeradorCarrosselImagens{
             mainModalDiv.classList.add("carrosselWrapper");
             mainModalDiv.id = "carrosselWrapper";
             
-            // ${this.Convert_CarrosselImagens_To_Html(this.GenerateCloneImages(this.imagensArray))}
             mainModalDiv.innerHTML = `
             <div class="imageWrapper" id="imageWrapper">
                 <div class="imageSubWrapper" id="imageSubWrapper">
@@ -79,9 +78,9 @@ export default class GeradorCarrosselImagens{
             `;
 
             div.appendChild(mainModalDiv);
-         
-            this.EventsOnLoad();
         }
+        
+        this.EventsOnLoad();
         return this;
     }
     
@@ -115,39 +114,9 @@ export default class GeradorCarrosselImagens{
         document.getElementById("rightDirection")?.addEventListener("click", function(e){
             classThis.ProximaPagina();
         });
-
-        // let container = document.getElementById("imageWrapper")!;
-        // let innerContainer = document.getElementById("imageSubWrapper")!;
-        
-        // let pressed = false;
-        // let startX: number = 0;
-        // let x: number = 0;
-
-        // container.addEventListener("mousedown", (e) => {
-        //     pressed = true;
-        //     startX = e.offsetX - innerContainer.offsetLeft;
-        //     container.style.cursor = "grabbing";
-        // });
-        
-        // container.addEventListener("mouseenter", () => {
-        //     container.style.cursor = "grab";
-        // });
-        
-        // container.addEventListener("mouseup", () => {
-        //     container.style.cursor = "grab";
-        //     pressed = false;
-        // });
-        
-        // container.addEventListener("mousemove", (e) => {
-        //     if (!pressed) return;
-        //     e.preventDefault();
-        
-        //     x = e.offsetX;
-        //     innerContainer.style.left = `${x - startX}px`;
-        // });
     }
 
-    private Convert_CarrosselImagens_To_Buttons(imagemArray: CarrosselImagem[]): string{
+    private Convert_CarrosselImagens_To_Buttons(imagemArray: CarrosselCompra[]): string{
         let output = "";
 
         imagemArray.forEach((img, i) => {
@@ -157,22 +126,7 @@ export default class GeradorCarrosselImagens{
         return output;
     }
 
-    private GenerateCloneImages(imagemArray: CarrosselImagem[]): CarrosselImagem[]{
-        let i = 0;
-
-        const setAsClone = (arr: CarrosselImagem[]) => { arr.forEach(el => { el.isClone = true; el.ordem = i++ }); return arr };
-        const setAsNotClone = (arr: CarrosselImagem[]) => { arr.forEach(el => { el.isClone = false; el.ordem = i++ }); return arr };
-        const pushArray = (arr1: CarrosselImagem[], arr2: CarrosselImagem[]) => { arr1.forEach(el => arr2.push(el)) };
-
-        let result: CarrosselImagem[] = [];
-        
-        pushArray(setAsClone(imagemArray.map(a => {return {...a}}).slice(1, imagemArray.length)), result);
-        pushArray(setAsNotClone(imagemArray.map(a => {return {...a}})), result);
-        pushArray(setAsClone(imagemArray.map(a => {return {...a}}).slice(0, imagemArray.length - 1)), result);
-
-        return result;
-    }
-    private Convert_CarrosselImagens_To_Html(imagemArray: CarrosselImagem[]): string{
+    private Convert_CarrosselImagens_To_Html(imagemArray: CarrosselCompra[]): string{
         let output = "";
 
         imagemArray.forEach((img, i) => {

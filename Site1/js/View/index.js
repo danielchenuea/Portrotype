@@ -1,11 +1,19 @@
+var _a, _b;
 import GeradorCarrosselImagens from "../Utils/GeradorCarrosselImagens.js";
+import GeradorSeletorEstrelas from "../Utils/GeradorSeletorEstrelas.js";
 let geradorCarrossel = null;
-$(function () {
-    preLoadPage();
-    afterLoadPage();
+let starSelector = null;
+preLoadPage();
+afterLoadPage();
+starSelector = new GeradorSeletorEstrelas({ idDiv: "estrelaSelector" });
+(_a = document.getElementById("setStar")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+    starSelector.SetScore(18);
+});
+(_b = document.getElementById("getStar")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => {
+    console.log(starSelector.GetScore());
 });
 function preLoadPage() {
-    document.querySelectorAll('[data-include]').forEach((el) => {
+    document.querySelectorAll('[page-section]').forEach((el) => {
         addHtml(el);
         addCss(el);
         addJavaScript(el);
@@ -18,7 +26,9 @@ function afterLoadPage() {
     }).Generate();
 }
 function addHtml(el) {
-    let file = 'views/MainPageView/' + el.getAttribute('data-include') + '.html';
+    var _a;
+    const htmlFile = (_a = el.getAttribute('html-include')) !== null && _a !== void 0 ? _a : el.getAttribute('data-include');
+    let file = 'views/MainPageView/' + htmlFile + '.html';
     if (el.getAttribute('data-noHtml') === "")
         return;
     fetch(file).then((response) => {
@@ -30,7 +40,10 @@ function addHtml(el) {
     });
 }
 function addCss(el) {
-    let filePath = 'css/View/MainPageView/' + el.getAttribute('data-include') + '.css';
+    var _a;
+    const cssFile = (_a = el.getAttribute('css-include')) !== null && _a !== void 0 ? _a : el.getAttribute('data-include');
+    console.log(cssFile);
+    let filePath = 'css/View/MainPageView/' + cssFile + '.css';
     if (el.getAttribute('data-noCss') === "")
         return;
     fetch(filePath).then((response) => {
@@ -45,7 +58,9 @@ function addCss(el) {
     });
 }
 function addJavaScript(el) {
-    let filePath = 'js/View/MainPageView/' + el.getAttribute('data-include') + '.js';
+    var _a;
+    const jsFile = (_a = el.getAttribute('js-include')) !== null && _a !== void 0 ? _a : el.getAttribute('data-include');
+    let filePath = 'js/View/MainPageView/' + jsFile + '.js';
     if (el.getAttribute('data-noJs') === "")
         return;
     fetch(filePath).then((response) => {

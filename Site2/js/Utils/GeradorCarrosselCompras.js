@@ -1,4 +1,4 @@
-export default class GeradorCarrosselImagens {
+export default class GeradorCarrosselCompras {
     constructor(options) {
         this.n_Imagens = 3;
         this.imagemPadrao = 0;
@@ -49,8 +49,8 @@ export default class GeradorCarrosselImagens {
             </div>
             `;
             div.appendChild(mainModalDiv);
-            this.EventsOnLoad();
         }
+        this.EventsOnLoad();
         return this;
     }
     EventsOnLoad() {
@@ -82,17 +82,6 @@ export default class GeradorCarrosselImagens {
             output += `<div class="carrosselPageIndicator ${this.imagemPadrao == i ? " active" : ""}" id='carrossel${i}' data-page='${i}'></div>`;
         });
         return output;
-    }
-    GenerateCloneImages(imagemArray) {
-        let i = 0;
-        const setAsClone = (arr) => { arr.forEach(el => { el.isClone = true; el.ordem = i++; }); return arr; };
-        const setAsNotClone = (arr) => { arr.forEach(el => { el.isClone = false; el.ordem = i++; }); return arr; };
-        const pushArray = (arr1, arr2) => { arr1.forEach(el => arr2.push(el)); };
-        let result = [];
-        pushArray(setAsClone(imagemArray.map(a => { return Object.assign({}, a); }).slice(1, imagemArray.length)), result);
-        pushArray(setAsNotClone(imagemArray.map(a => { return Object.assign({}, a); })), result);
-        pushArray(setAsClone(imagemArray.map(a => { return Object.assign({}, a); }).slice(0, imagemArray.length - 1)), result);
-        return result;
     }
     Convert_CarrosselImagens_To_Html(imagemArray) {
         let output = "";

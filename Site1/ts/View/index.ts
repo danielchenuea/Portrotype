@@ -1,14 +1,24 @@
 import GeradorCarrosselImagens from "../Utils/GeradorCarrosselImagens.js";
+import GeradorSeletorEstrelas from "../Utils/GeradorSeletorEstrelas.js";
+
 
 let geradorCarrossel: GeradorCarrosselImagens | null = null;
+let starSelector: GeradorSeletorEstrelas | null = null;
 
-$(function() {
-  preLoadPage();
-  afterLoadPage();
+preLoadPage();
+afterLoadPage();
+starSelector = new GeradorSeletorEstrelas({idDiv: "estrelaSelector"})
+document.getElementById("setStar")?.addEventListener("click", () => {
+  starSelector.SetScore(18);
 });
+document.getElementById("getStar")?.addEventListener("click", () => {
+  console.log(starSelector.GetScore());
+});
+// $(function() {
+// });
 
 function preLoadPage(){
-  document.querySelectorAll('[data-include]').forEach((el) => {
+  document.querySelectorAll('[page-section]').forEach((el) => {
     addHtml(el);
     addCss(el);
     addJavaScript(el);
@@ -23,7 +33,9 @@ function afterLoadPage(){
 }
 
 function addHtml(el: Element) {
-  let file = 'views/MainPageView/' + el.getAttribute('data-include') + '.html'
+  const htmlFile = el.getAttribute('html-include') ?? el.getAttribute('data-include');
+
+  let file = 'views/MainPageView/' + htmlFile + '.html'
 
   if(el.getAttribute('data-noHtml') === "") return;
 
@@ -37,7 +49,9 @@ function addHtml(el: Element) {
 }
 
 function addCss(el: Element) {
-  let filePath = 'css/View/MainPageView/' + el.getAttribute('data-include') + '.css';
+  const cssFile = el.getAttribute('css-include') ?? el.getAttribute('data-include');
+    console.log(cssFile);
+  let filePath = 'css/View/MainPageView/' + cssFile + '.css';
 
   if(el.getAttribute('data-noCss') === "") return;
   
@@ -56,7 +70,9 @@ function addCss(el: Element) {
 }
 
 function addJavaScript(el: Element) {
-  let filePath = 'js/View/MainPageView/' + el.getAttribute('data-include') + '.js';
+  const jsFile = el.getAttribute('js-include') ?? el.getAttribute('data-include');
+
+  let filePath = 'js/View/MainPageView/' + jsFile + '.js';
 
   if(el.getAttribute('data-noJs') === "") return;
   

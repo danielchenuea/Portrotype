@@ -1,0 +1,26 @@
+
+.UniqueScreenWrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;  
+}
+.UniqueScreenContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: fit-content;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.UniqueScreenPage{
+    display: flex;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+}
