@@ -10,6 +10,7 @@ let uniqueScreen = new GeradorUniqueScreen({
     screenEvents: [
         {
             screenName: "Page1",
+            screenSetupEvents: _Page1Script.SetupEvents,
             onEnter: _Page1Script.onEnter,
             onLeave: _Page1Script.onLeave,
             onEntering: _Page1Script.onEntering,
@@ -17,6 +18,7 @@ let uniqueScreen = new GeradorUniqueScreen({
         },
         {
             screenName: "Page2",
+            screenSetupEvents: _Page2Script.SetupEvents,
             onEnter: _Page2Script.onEnter,
             onLeave: _Page2Script.onLeave,
             onEntering: _Page2Script.onEntering,
@@ -24,6 +26,7 @@ let uniqueScreen = new GeradorUniqueScreen({
         },
         {
             screenName: "Page3",
+            screenSetupEvents: _Page3Script.SetupEvents,
             onEnter: _Page3Script.onEnter,
             onLeave: _Page3Script.onLeave,
             onEntering: _Page3Script.onEntering,

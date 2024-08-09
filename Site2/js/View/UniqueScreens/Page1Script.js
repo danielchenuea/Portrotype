@@ -6,7 +6,7 @@ export default class Page1Script {
             document.querySelectorAll("#Page1Content .Page1Content_Filler").forEach((el, i) => {
                 this.timeoutArr.push(setTimeout(() => {
                     el.classList.remove("hidden");
-                }, i * 100));
+                }, i * 30));
             });
         };
         this.onLeave = () => {

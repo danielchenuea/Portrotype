@@ -39,6 +39,7 @@ export default class GeradorUniqueScreen {
                     if (response.ok) {
                         response.text().then((body) => {
                             el.innerHTML = body;
+                            this.ExecuteScreenCommand(htmlFile, "screenSetupEvents");
                         });
                     }
                 });
@@ -84,7 +85,14 @@ export default class GeradorUniqueScreen {
         });
         return this;
     }
-    ExecuteOnCommand(pageId, command) {
+    ExecuteAllScripts(command) {
+        this.screenEvents.forEach(currScreen => {
+            if (currScreen[command] == undefined)
+                return;
+            currScreen[command]();
+        });
+    }
+    ExecuteScreenCommand(pageId, command) {
         let currScreen = this.GetScreenScript(pageId);
         if (currScreen == undefined)
             return;
@@ -130,15 +138,15 @@ export default class GeradorUniqueScreen {
         ;
         this.lastPage = this.currentPage;
         this.currentPage = newPage;
-        this.ExecuteOnCommand(this.screenNames[this.lastPage], "onLeaving");
-        this.ExecuteOnCommand(this.screenNames[this.currentPage], "onEntering");
+        this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeaving");
+        this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEntering");
         const div = document.getElementById(`UniqueScreenContainer`);
         div.style.transition = `${this.pageTransitionDelay}ms all ease-in-out`;
         div.style.transform = `translate(0px, -${newPage * window.innerHeight}px)`;
         setTimeout(() => {
             this.StopScrolling();
-            this.ExecuteOnCommand(this.screenNames[this.lastPage], "onLeave");
-            this.ExecuteOnCommand(this.screenNames[this.currentPage], "onEnter");
+            this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeave");
+            this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEnter");
         }, this.pageTransitionDelay);
     }
     ScrollToCurrent() {

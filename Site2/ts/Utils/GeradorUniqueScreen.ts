@@ -9,12 +9,13 @@ export interface GeradorUniqueScreen_Options{
 
 export interface ScreenOption {
     screenName: string
+    screenSetupEvents: () => void
     onEntering?: () => void;
     onEnter?: () => void;
     onLeaving?: () => void;
     onLeave?: () => void;
 }
-export type AllowedScreenCommands = "onEntering" | "onEnter" | "onLeaving" | "onLeave"
+export type AllowedScreenCommands = "screenSetupEvents" | "onEntering" | "onEnter" | "onLeaving" | "onLeave"
 
 export default class GeradorUniqueScreen{
     private idDiv: string;
@@ -76,6 +77,7 @@ export default class GeradorUniqueScreen{
                     if(response.ok){
                         response.text().then((body) => {
                             el.innerHTML = body;
+                            this.ExecuteScreenCommand(htmlFile, "screenSetupEvents")
                         });
                     }
                 })
@@ -125,10 +127,17 @@ export default class GeradorUniqueScreen{
             this.ScrollToCurrent();
         })
 
+        // this.ExecuteAllScripts("screenSetupEvents")
         return this;
     }
 
-    ExecuteOnCommand(pageId: string, command: AllowedScreenCommands){
+    ExecuteAllScripts(command: AllowedScreenCommands){
+        this.screenEvents.forEach(currScreen => {
+            if(currScreen[command] == undefined) return;
+            currScreen[command]!();
+        })
+    }
+    ExecuteScreenCommand(pageId: string, command: AllowedScreenCommands){
         let currScreen = this.GetScreenScript(pageId);
         if(currScreen == undefined) return;
 
@@ -179,8 +188,8 @@ export default class GeradorUniqueScreen{
         this.lastPage = this.currentPage;
         this.currentPage = newPage;
         
-        this.ExecuteOnCommand(this.screenNames[this.lastPage], "onLeaving")
-        this.ExecuteOnCommand(this.screenNames[this.currentPage], "onEntering")
+        this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeaving")
+        this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEntering")
 
         const div = document.getElementById(`UniqueScreenContainer`) as HTMLElement;
         div!.style.transition = `${this.pageTransitionDelay}ms all ease-in-out`;
@@ -188,8 +197,8 @@ export default class GeradorUniqueScreen{
 
         setTimeout(() => {
             this.StopScrolling();
-            this.ExecuteOnCommand(this.screenNames[this.lastPage], "onLeave")
-            this.ExecuteOnCommand(this.screenNames[this.currentPage], "onEnter")
+            this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeave")
+            this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEnter")
     
         }, this.pageTransitionDelay)
     }
