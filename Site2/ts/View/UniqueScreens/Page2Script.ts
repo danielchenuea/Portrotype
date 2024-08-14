@@ -77,10 +77,14 @@ export default class Page2Script{
             const textElement = document.querySelector(`#Page2Content .Page2Content_TextBox`) as HTMLElement;
             textElement.classList.add("hidden");
             
-            setTimeout(() => {
-                el.style.top = "";
-                this.ShowColumns();
-            }, useDelay ? (parseInt(textElement.getAttribute("data-index") ?? "0") * 100) + 400 : 0);
+            if(useDelay){
+                setTimeout(() => {
+                    el.style.top = "";
+                    this.ShowColumns();
+                }, (parseInt(textElement.getAttribute("data-index") ?? "0") * 100) + 400);
+            }else{
+                el.style.top = "0px";
+            }
         })
     }
 

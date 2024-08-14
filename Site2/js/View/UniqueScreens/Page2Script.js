@@ -52,10 +52,15 @@ export default class Page2Script {
                 const el = column;
                 const textElement = document.querySelector(`#Page2Content .Page2Content_TextBox`);
                 textElement.classList.add("hidden");
-                setTimeout(() => {
-                    el.style.top = "";
-                    this.ShowColumns();
-                }, useDelay ? (parseInt((_a = textElement.getAttribute("data-index")) !== null && _a !== void 0 ? _a : "0") * 100) + 400 : 0);
+                if (useDelay) {
+                    setTimeout(() => {
+                        el.style.top = "";
+                        this.ShowColumns();
+                    }, (parseInt((_a = textElement.getAttribute("data-index")) !== null && _a !== void 0 ? _a : "0") * 100) + 400);
+                }
+                else {
+                    el.style.top = "0px";
+                }
             });
         };
         this.ShowColumns = () => {
