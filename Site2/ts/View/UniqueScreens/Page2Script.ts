@@ -81,7 +81,7 @@ export default class Page2Script{
                 setTimeout(() => {
                     el.style.top = "";
                     this.ShowColumns();
-                }, (parseInt(textElement.getAttribute("data-index") ?? "0") * 100) + 400);
+                }, (parseInt(textElement.getAttribute("data-index") ?? "0")) + 400);
             }else{
                 el.style.top = "0px";
             }

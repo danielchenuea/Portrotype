@@ -1,0 +1,194 @@
+#PageSocialContent {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 120px);
+  background-color: #e7e7e7;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease-in-out;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/* >= 768PX */
+@media (min-width: 768px) {
+  #PageSocialContent {
+    padding-left: 140px;
+    padding-right: 140px;
+  }
+  .PageSocialContent_HeaderOverlay {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 0) 90%
+    );
+  }
+}
+
+/* <= 768PX */
+@media (max-width: 767px) {
+  #PageSocialContent {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .PageSocialContent_HeaderOverlay {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 70%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+}
+
+.PageSocial_Wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.PageSocialContent_Header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100px;
+  border: 2px solid #d9d9d9;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-size: 16px 16px;
+  background-image: linear-gradient(
+      45deg,
+      #f4f4f4 25%,
+      transparent 25%,
+      transparent 75%,
+      #f4f4f4 75%,
+      #f4f4f4
+    ),
+    linear-gradient(
+      45deg,
+      #f4f4f4 25%,
+      transparent 25%,
+      transparent 75%,
+      #f4f4f4 75%,
+      #f4f4f4
+    ),
+    linear-gradient(
+      45deg,
+      #fff 25%,
+      transparent 25%,
+      transparent 75%,
+      #fff 75%,
+      #fff
+    ),
+    linear-gradient(
+      45deg,
+      #fff 25%,
+      transparent 25%,
+      transparent 75%,
+      #fff 75%,
+      #fff
+    );
+  background-position: 0 0, 8px 8px, 8px 0, 0 8px;
+}
+.PageSocialContent_HeaderOverlay {
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  /* background: linear-gradient(90deg, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 90%); */
+}
+.PageSocialContent_HeaderButton {
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border-right: 2px solid #d9d9d9;
+  transition: all 100ms ease-in-out;
+  cursor: pointer;
+}
+.PageSocialContent_HeaderButton:hover {
+  background-color: #555;
+}
+.PageSocialContent_HeaderButton .clicked {
+  background-color: #555;
+}
+.PageSocialContent_HeaderButton > i {
+  font-size: 3em;
+  transition: all 100ms ease-in-out;
+  color: #555;
+}
+.PageSocialContent_HeaderButton:hover > i {
+  color: #fff;
+}
+.PageSocialContent_HeaderButton .clicked > i {
+  color: #fff;
+}
+
+.PageSocialContent_Content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* width: 100%;
+    height: 70%; */
+  width: calc(100% - 200px);
+  height: calc(70% - 120px);
+  border: 2px solid #d9d9d9;
+  border-top: none;
+  background-color: #fff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding: 60px 100px;
+}
+.PageSocialContent_Wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.PageSocialContent_ImageWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 4px);
+  height: calc(84% - 4px);
+  border-radius: 4px;
+  border: 2px solid #f5f5f5;
+  overflow: hidden;
+}
+.PageSocialContent_Image {
+  position: relative;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+.PageSocialContent_ButtonDiv {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  height: 12%;
+  margin-top: 2%;
+}
+.PageSocialContent_Button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  right: 0px;
+  border-radius: 5px;
+  background-color: #b3b3b3;
+}

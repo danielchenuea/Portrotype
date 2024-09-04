@@ -25,7 +25,6 @@ export default class Page1Script {
             this.timeoutArr.forEach(el => clearTimeout(el));
             this.timeoutArr = [];
         };
-        this.SetupEvents();
     }
     SetupEvents() {
     }

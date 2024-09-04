@@ -18,6 +18,5 @@ export default class Page3Script {
         };
         this.onEntering = () => { };
         this.onLeaving = () => { };
-        this.SetupEvents();
     }
 }

@@ -127,7 +127,6 @@ export default class GeradorUniqueScreen{
             this.ScrollToCurrent();
         })
 
-        // this.ExecuteAllScripts("screenSetupEvents")
         return this;
     }
 

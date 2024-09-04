@@ -2,7 +2,7 @@
 export default class Page3Script{
 
     constructor(){
-        this.SetupEvents();
+        // this.SetupEvents();
     }
 
     SetupEvents = () => {

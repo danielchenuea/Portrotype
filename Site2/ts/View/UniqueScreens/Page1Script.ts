@@ -4,7 +4,7 @@ export default class Page1Script{
     timeoutArr: NodeJS.Timeout[] = []
 
     constructor(){
-        this.SetupEvents();
+        // this.SetupEvents();
     }
 
     SetupEvents(){
