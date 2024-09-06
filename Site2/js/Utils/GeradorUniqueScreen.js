@@ -14,22 +14,22 @@ export default class GeradorUniqueScreen {
             .SetupEvents();
     }
     SetupHTML() {
-        const div = document.querySelector(`#${this.idDiv}`);
-        if (div) {
+        const div = document.getElementById(`${this.idDiv}`);
+        const screensDiv = div === null || div === void 0 ? void 0 : div.querySelector(`#UniqueScreenPages`);
+        if (div && screensDiv) {
             div.classList.add("UniqueScreenWrapper");
-            const screensDiv = div.innerHTML;
             const mainContentDiv = document.createElement("div");
             mainContentDiv.classList.add("UniqueScreenContainer");
             mainContentDiv.id = "UniqueScreenContainer";
-            mainContentDiv.innerHTML = screensDiv;
+            mainContentDiv.innerHTML = screensDiv.innerHTML;
             for (let i = 0; i < mainContentDiv.children.length; i++) {
                 const element = mainContentDiv.children[i];
                 element.classList.add("UniqueScreenPage");
             }
-            while (div.firstChild) {
-                div.removeChild(div.firstChild);
+            while (screensDiv.firstChild) {
+                screensDiv.removeChild(screensDiv.firstChild);
             }
-            div.appendChild(mainContentDiv);
+            screensDiv.appendChild(mainContentDiv);
             document.querySelectorAll('.UniqueScreenPage').forEach((el) => {
                 const htmlFile = el.id;
                 let file = 'views/UniqueScreens/' + htmlFile + '.html';

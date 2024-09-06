@@ -5,6 +5,9 @@ export interface GeradorUniqueScreen_Options{
     screenEvents: ScreenOption[]
 
     pageTransitionDelay?: number
+    enableFreeScroll?: boolean;
+
+    overlayScreen?: ScreenOption;
 }
 
 export interface ScreenOption {
@@ -45,27 +48,26 @@ export default class GeradorUniqueScreen{
     }
 
     SetupHTML(){
-        const div = document.querySelector(`#${this.idDiv}`);
+        const div = document.getElementById(`${this.idDiv}`);
+        const screensDiv = div?.querySelector(`#UniqueScreenPages`);
 
-        if (div) {
+        if (div && screensDiv) {
             div.classList.add("UniqueScreenWrapper");
             
-            const screensDiv = div.innerHTML;
-
             const mainContentDiv = document.createElement("div");
             mainContentDiv.classList.add("UniqueScreenContainer");
             mainContentDiv.id = "UniqueScreenContainer";
-            mainContentDiv.innerHTML = screensDiv;
+            mainContentDiv.innerHTML = screensDiv.innerHTML;
 
             for (let i = 0; i < mainContentDiv.children.length; i++) {
                 const element = mainContentDiv.children[i];
                 element.classList.add("UniqueScreenPage");
             }
             
-            while (div.firstChild) {
-                div.removeChild(div.firstChild);
+            while (screensDiv.firstChild) {
+                screensDiv.removeChild(screensDiv.firstChild);
             }
-            div.appendChild(mainContentDiv);
+            screensDiv.appendChild(mainContentDiv);
 
             document.querySelectorAll('.UniqueScreenPage').forEach((el) => {  
                 const htmlFile = el.id;

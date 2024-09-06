@@ -11,6 +11,14 @@ let _Page3Script = new Page3Script();
 let _PageSocialScript = new PageSocialScript();
 let uniqueScreen = new GeradorUniqueScreen({
     idDiv: "UniqueScreenMain",
+    overlayScreen: {
+        screenName: "PageInicial",
+        screenSetupEvents: _PageInicialScript.SetupEvents,
+        onEnter: _PageInicialScript.onEnter,
+        onLeave: _PageInicialScript.onLeave,
+        onEntering: _PageInicialScript.onEntering,
+        onLeaving: _PageInicialScript.onLeaving,
+    },
     screenEvents: [
         {
             screenName: "PageInicial",
