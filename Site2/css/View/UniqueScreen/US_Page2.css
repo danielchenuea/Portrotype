@@ -48,7 +48,7 @@
   border-right: none;
   margin-top: -2px;
 
-  /* transition: 400ms all ease-in-out; */
+  transition: 400ms transform ease-in-out, 400ms opacity ease-in-out;
   transform: translate(0px, 0px);
   opacity: 1;
   top: 0;
@@ -136,7 +136,7 @@
   height: 80%;
   /* background-color: #b3b3b3; */
   overflow: hidden;
-  transition: 300ms all ease-in-out;
+  /* transition: 300ms all ease-in-out; */
   z-index: 10;
 }
 .Page2Content_TextBox.hidden {

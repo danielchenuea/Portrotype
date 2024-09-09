@@ -1,3 +1,4 @@
+import gsap from 'gsap';
 
 interface HideColumns_Options{
     hideModel?: "alternate" | "alternate2" | "before" | "after"
@@ -26,11 +27,11 @@ export default class Page2Script{
             }
         })
 
-        // Add custom css to each Column
-        document.querySelectorAll("#Page2Content .Page2Content_Column").forEach((column, i) => {
-            const el = column as HTMLElement;
-            el.style.transition = `400ms all ease-in-out, ${i*100}ms top ease-in-out`
-        })
+        // // Add custom css to each Column
+        // document.querySelectorAll("#Page2Content .Page2Content_Column").forEach((column, i) => {
+        //     const el = column as HTMLElement;
+        //     el.style.transition = `400ms all ease-in-out, ${i*100}ms top ease-in-out`
+        // })
 
     }
 
@@ -54,37 +55,51 @@ export default class Page2Script{
         const textElement = document.querySelector(`#Page2Content .Page2Content_TextBox`) as HTMLElement
         this.HideColumns({hideModel: "after", exclude: dataIndex});
         
-        setTimeout(() => {
-            el.style.top = `-${el.clientHeight * (dataIndex)}px`
-            // el.style.position = `absolute`;
-            // el.style.left = `0px`;
-            // // Resize Event
-            // window.addEventListener('resize', (e) => {
-            //     // el.style.offset = `-${el.offsetLeft*2}px`;
-            //     el.style.position = `absolute`;
-            //     el.style.left = `0px`;
-            // })
-            setTimeout(() => {
-                textElement.classList.remove("hidden");
+        let tl = gsap.timeline();
+        tl.to(el, {
+            top: `-${el.clientHeight * (dataIndex)}px`,
+            duration: (dataIndex * .05) + 0.1,
+            delay: 0.3,
+            ease: "sine.inOut"
+        })
+        tl.to(textElement, {
+            delay: 0.2,
+            'height': "80%",
+            duration: 0.2,
+            ease: 'sine.inOut',
+        })
+        // setTimeout(() => {
+        //     el.style.top = `-${el.clientHeight * (dataIndex)}px`
+        //     setTimeout(() => {
+        //         textElement.classList.remove("hidden");
 
-            }, (dataIndex * 100) + 200);
-        }, 300);
+        //     }, (dataIndex * 100) + 200);
+        // }, 300);
     }
-
+    
     ResetInfoMode = (useDelay: boolean) => {
         document.querySelectorAll("#Page2Content .Page2Content_Column").forEach((column, i) => {
+            if(column.classList.contains("hiddenAfter") || column.classList.contains("hiddenBefore")) return;
+
             const el = column as HTMLElement;
             const textElement = document.querySelector(`#Page2Content .Page2Content_TextBox`) as HTMLElement;
-            textElement.classList.add("hidden");
-            
-            if(useDelay){
-                setTimeout(() => {
-                    el.style.top = "";
+            const dataIndex = parseInt(column.getAttribute("data-index") ?? "0")
+
+            let tl = gsap.timeline();
+            tl.to(textElement, {
+                'height': "0",
+                duration: 0.15,
+                ease: 'sine.inOut',
+            })
+            .to(el, {
+                duration: (dataIndex * 0.05) + 0.1,
+                delay: 0.2,
+                top: "0px",
+                ease: 'sine.inOut',
+                onComplete: () => {
                     this.ShowColumns();
-                }, (parseInt(textElement.getAttribute("data-index") ?? "0")) + 400);
-            }else{
-                el.style.top = "0px";
-            }
+                }
+            })
         })
     }
 
@@ -148,7 +163,7 @@ export default class Page2Script{
             }
 
             if(options.instant !== undefined && options.instant === true){
-                (el as HTMLElement).style.transition = `400ms all ease-in-out, ${i*100}ms top ease-in-out`
+                // (el as HTMLElement).style.transition = `400ms all ease-in-out, ${i*100}ms top ease-in-out`
             }
         })
     }

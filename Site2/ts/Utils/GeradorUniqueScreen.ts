@@ -3,6 +3,7 @@ import { uniqueSort } from "jquery";
 export interface GeradorUniqueScreen_Options{
     idDiv: string
     screenEvents: ScreenOption[]
+    overlayEvents: OverlayOption[]
 
     pageTransitionDelay?: number
     enableFreeScroll?: boolean;
@@ -18,13 +19,24 @@ export interface ScreenOption {
     onLeaving?: () => void;
     onLeave?: () => void;
 }
+export interface OverlayOption {
+    overlayName: string
+    overlaySetupEvents: () => void
+    onEntering?: () => void;
+    onEnter?: () => void;
+    onLeaving?: () => void;
+    onLeave?: () => void;
+}
 export type AllowedScreenCommands = "screenSetupEvents" | "onEntering" | "onEnter" | "onLeaving" | "onLeave"
+export type AllowedOverlayCommands = "overlaySetupEvents" | "onEntering" | "onEnter" | "onLeaving" | "onLeave"
 
 export default class GeradorUniqueScreen{
     private idDiv: string;
     
     private screenNames: string[] = []
     private screenEvents: ScreenOption[]
+    private overlayNames: string[] = []
+    private overlayEvents: OverlayOption[]
 
     private numPages: number = 0;
 
@@ -41,6 +53,7 @@ export default class GeradorUniqueScreen{
     constructor(options: GeradorUniqueScreen_Options){
         this.idDiv = options.idDiv;
         this.screenEvents = options.screenEvents;
+        this.overlayEvents = options.overlayEvents;
 
         this.SetupHTML()
             .SetupEvents();
@@ -50,41 +63,87 @@ export default class GeradorUniqueScreen{
     SetupHTML(){
         const div = document.getElementById(`${this.idDiv}`);
         const screensDiv = div?.querySelector(`#UniqueScreenPages`);
+        const overlayDiv = div?.querySelector(`#UniqueScreenOverlay`);
 
-        if (div && screensDiv) {
+        if (div) {
             div.classList.add("UniqueScreenWrapper");
             
-            const mainContentDiv = document.createElement("div");
-            mainContentDiv.classList.add("UniqueScreenContainer");
-            mainContentDiv.id = "UniqueScreenContainer";
-            mainContentDiv.innerHTML = screensDiv.innerHTML;
-
-            for (let i = 0; i < mainContentDiv.children.length; i++) {
-                const element = mainContentDiv.children[i];
-                element.classList.add("UniqueScreenPage");
-            }
+            if (screensDiv){
+                    const mainContentDiv = document.createElement("div");
+                    mainContentDiv.classList.add("UniqueScreenContainer");
+                    mainContentDiv.id = "UniqueScreenContainer";
+                    mainContentDiv.innerHTML = screensDiv.innerHTML;
+        
+                    for (let i = 0; i < mainContentDiv.children.length; i++) {
+                        const element = mainContentDiv.children[i];
+                        element.classList.add("UniqueScreenPage");
+                        const htmlFile = element.id;
+                        let file = 'views/UniqueScreens/' + htmlFile + '.html'
+                        this.screenNames.push(htmlFile);
+                        this.numPages += 1;
             
-            while (screensDiv.firstChild) {
-                screensDiv.removeChild(screensDiv.firstChild);
-            }
-            screensDiv.appendChild(mainContentDiv);
-
-            document.querySelectorAll('.UniqueScreenPage').forEach((el) => {  
-                const htmlFile = el.id;
-                let file = 'views/UniqueScreens/' + htmlFile + '.html'
-                this.screenNames.push(htmlFile);
-                this.numPages += 1;
-    
-                fetch(file).then((response) => {
-                    if(response.ok){
-                        response.text().then((body) => {
-                            el.innerHTML = body;
-                            this.ExecuteScreenCommand(htmlFile, "screenSetupEvents")
-                        });
+                        fetch(file).then((response) => {
+                            if(response.ok){
+                                response.text().then((body) => {
+                                    element.innerHTML = body;
+                                    this.ExecuteScreenCommand(htmlFile, "screenSetupEvents")
+                                });
+                            }
+                        })
                     }
-                })
-            })
+                    
+                    while (screensDiv.firstChild) {
+                        screensDiv.removeChild(screensDiv.firstChild);
+                    }
+                    screensDiv.appendChild(mainContentDiv);
+        
+                    // document.querySelectorAll('.UniqueScreenPage').forEach((el) => {  
+                    //     const htmlFile = el.id;
+                    //     let file = 'views/UniqueScreens/' + htmlFile + '.html'
+                    //     this.screenNames.push(htmlFile);
+                    //     this.numPages += 1;
+            
+                    //     fetch(file).then((response) => {
+                    //         if(response.ok){
+                    //             response.text().then((body) => {
+                    //                 el.innerHTML = body;
+                    //                 this.ExecuteScreenCommand(htmlFile, "screenSetupEvents")
+                    //             });
+                    //         }
+                    //     })
+                    // })
+            }
+
+            if (overlayDiv) {
+                const overlayContentDiv = document.createElement("div");
+                overlayContentDiv.classList.add("UniqueOverlayContainer");
+                overlayContentDiv.id = "UniqueOverlayContainer";
+                overlayContentDiv.innerHTML = overlayDiv.innerHTML;
+    
+                for (let i = 0; i < overlayContentDiv.children.length; i++) {
+                    const element = overlayContentDiv.children[i];
+                    element.classList.add("UniqueOverlayPage");
+                    const htmlFile = element.id;
+                    let file = 'views/UniqueOverlay/' + htmlFile + '.html'
+                    this.overlayNames.push(htmlFile);
+        
+                    fetch(file).then((response) => {
+                        if(response.ok){
+                            response.text().then((body) => {
+                                element.innerHTML = body;
+                                this.ExecuteOverlayCommand(htmlFile, "overlaySetupEvents")
+                            });
+                        }
+                    })
+                }
+                
+                while (overlayDiv.firstChild) {
+                    overlayDiv.removeChild(overlayDiv.firstChild);
+                }
+                overlayDiv.appendChild(overlayContentDiv);
+            }
         }
+
         return this;
     }
 
@@ -147,6 +206,17 @@ export default class GeradorUniqueScreen{
     }
     GetScreenScript(pageId: string) : ScreenOption | undefined {
         return this.screenEvents.find(el => el.screenName == pageId)
+    }
+    
+    ExecuteOverlayCommand(pageId: string, command: AllowedOverlayCommands){
+        let currOverlay = this.GetOverlayScript(pageId);
+        if(currOverlay == undefined) return;
+
+        if(currOverlay[command] == undefined) return;
+        currOverlay[command]!();
+    }
+    GetOverlayScript(pageId: string) : OverlayOption | undefined {
+        return this.overlayEvents.find(el => el.overlayName == pageId)
     }
 
     // ===== PAGINATION =====

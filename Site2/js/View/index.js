@@ -4,6 +4,8 @@ import Page1Script from "./UniqueScreens/Page1Script.js";
 import Page2Script from "./UniqueScreens/Page2Script.js";
 import Page3Script from "./UniqueScreens/Page3Script.js";
 import PageSocialScript from "./UniqueScreens/PageSocialScript.js";
+import MainOverlayScript from "./UniqueOverlay/MainOverlayScript.js";
+let _MainOverlayScript = new MainOverlayScript();
 let _PageInicialScript = new PageInicialScript();
 let _Page1Script = new Page1Script();
 let _Page2Script = new Page2Script();
@@ -11,14 +13,16 @@ let _Page3Script = new Page3Script();
 let _PageSocialScript = new PageSocialScript();
 let uniqueScreen = new GeradorUniqueScreen({
     idDiv: "UniqueScreenMain",
-    overlayScreen: {
-        screenName: "PageInicial",
-        screenSetupEvents: _PageInicialScript.SetupEvents,
-        onEnter: _PageInicialScript.onEnter,
-        onLeave: _PageInicialScript.onLeave,
-        onEntering: _PageInicialScript.onEntering,
-        onLeaving: _PageInicialScript.onLeaving,
-    },
+    overlayEvents: [
+        {
+            overlayName: "MainOverlay",
+            overlaySetupEvents: _MainOverlayScript.SetupEvents,
+            onEnter: _MainOverlayScript.onEnter,
+            onLeave: _MainOverlayScript.onLeave,
+            onEntering: _MainOverlayScript.onEntering,
+            onLeaving: _MainOverlayScript.onLeaving,
+        }
+    ],
     screenEvents: [
         {
             screenName: "PageInicial",

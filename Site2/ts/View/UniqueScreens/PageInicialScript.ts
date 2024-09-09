@@ -6,7 +6,7 @@ export default class PageInicialScript{
     
     delayTimeout?: NodeJS.Timeout
     delayOn: boolean = false
-    
+
     choosePhrase: string[] = ["Huh","Wow","Hey","Sup","Yo","Hello","Oh","Olá"];
     randomPhrases: string[] = [];
     chosenPhrase: string = "";

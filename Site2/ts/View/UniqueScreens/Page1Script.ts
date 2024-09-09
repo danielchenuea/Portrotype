@@ -7,7 +7,7 @@ export default class Page1Script{
         // this.SetupEvents();
     }
 
-    SetupEvents(){
+    SetupEvents = () => {
 
     }
 

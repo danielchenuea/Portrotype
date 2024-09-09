@@ -1,6 +1,8 @@
 export default class Page1Script {
     constructor() {
         this.timeoutArr = [];
+        this.SetupEvents = () => {
+        };
         this.onEnter = () => {
             this.ClearTimeout();
             document.querySelectorAll("#Page1Content .Page1Content_Filler").forEach((el, i) => {
@@ -25,7 +27,5 @@ export default class Page1Script {
             this.timeoutArr.forEach(el => clearTimeout(el));
             this.timeoutArr = [];
         };
-    }
-    SetupEvents() {
     }
 }
