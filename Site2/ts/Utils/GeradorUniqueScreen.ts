@@ -2,8 +2,11 @@ import { uniqueSort } from "jquery";
 
 export interface GeradorUniqueScreen_Options{
     idDiv: string
+
     screenEvents: ScreenOption[]
     overlayEvents: OverlayOption[]
+
+    backgroundEvent?: (backgroundDIV: HTMLDivElement) => void;
 
     pageTransitionDelay?: number
     enableFreeScroll?: boolean;
@@ -33,10 +36,12 @@ export type AllowedOverlayCommands = "overlaySetupEvents" | "onEntering" | "onEn
 export default class GeradorUniqueScreen{
     private idDiv: string;
     
-    private screenNames: string[] = []
-    private screenEvents: ScreenOption[]
-    private overlayNames: string[] = []
-    private overlayEvents: OverlayOption[]
+    private screenNames: string[] = [];
+    private screenEvents: ScreenOption[];
+    private overlayNames: string[] = [];
+    private overlayEvents: OverlayOption[];
+
+    backgroundEvent: (backgroundDIV: HTMLDivElement) => void = () => {}
 
     private numPages: number = 0;
 
@@ -54,6 +59,7 @@ export default class GeradorUniqueScreen{
         this.idDiv = options.idDiv;
         this.screenEvents = options.screenEvents;
         this.overlayEvents = options.overlayEvents;
+        if (options.backgroundEvent != null) this.backgroundEvent = options.backgroundEvent;
 
         this.SetupHTML()
             .SetupEvents();
@@ -96,7 +102,6 @@ export default class GeradorUniqueScreen{
                         screensDiv.removeChild(screensDiv.firstChild);
                     }
                     screensDiv.appendChild(mainContentDiv);
-        
                     // document.querySelectorAll('.UniqueScreenPage').forEach((el) => {  
                     //     const htmlFile = el.id;
                     //     let file = 'views/UniqueScreens/' + htmlFile + '.html'
@@ -142,6 +147,9 @@ export default class GeradorUniqueScreen{
                 }
                 overlayDiv.appendChild(overlayContentDiv);
             }
+
+            if (this.backgroundEvent != null) this.backgroundEvent(document.getElementById("UniqueScreenBackground") as HTMLDivElement);
+
         }
 
         return this;

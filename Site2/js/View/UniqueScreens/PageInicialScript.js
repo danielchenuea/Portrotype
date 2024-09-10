@@ -136,8 +136,6 @@ export default class PageInicialScript {
                 duration: 0.2
             });
         };
-        this.ClearTimeout = () => {
-        };
     }
     InitiatePage() {
         const mask = document.getElementById("pageInicialMask");

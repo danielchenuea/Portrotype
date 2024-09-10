@@ -2,6 +2,7 @@ export default class GeradorUniqueScreen {
     constructor(options) {
         this.screenNames = [];
         this.overlayNames = [];
+        this.backgroundEvent = () => { };
         this.numPages = 0;
         this.lastPage = 0;
         this.currentPage = 0;
@@ -12,6 +13,8 @@ export default class GeradorUniqueScreen {
         this.idDiv = options.idDiv;
         this.screenEvents = options.screenEvents;
         this.overlayEvents = options.overlayEvents;
+        if (options.backgroundEvent != null)
+            this.backgroundEvent = options.backgroundEvent;
         this.SetupHTML()
             .SetupEvents();
     }
@@ -72,6 +75,8 @@ export default class GeradorUniqueScreen {
                 }
                 overlayDiv.appendChild(overlayContentDiv);
             }
+            if (this.backgroundEvent != null)
+                this.backgroundEvent(document.getElementById("UniqueScreenBackground"));
         }
         return this;
     }

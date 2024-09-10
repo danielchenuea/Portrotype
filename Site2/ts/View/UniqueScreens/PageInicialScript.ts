@@ -116,6 +116,7 @@ export default class PageInicialScript{
             })
         }, 100))
         this.InitiatePage();
+        // this.GenerateStars();
     }
 
 
@@ -176,7 +177,4 @@ export default class PageInicialScript{
         })
     }
 
-    ClearTimeout = () => {
-
-    }
 }

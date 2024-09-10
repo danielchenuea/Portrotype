@@ -1,0 +1,225 @@
+
+#MainOverlayContent{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* z-index: 10; */
+}
+
+.MainOverlay_Button{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    color: white;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    background-color: #0000;
+    border-bottom-left-radius: 4px;
+    transition: 150ms ease-in-out background-color;
+}
+.MainOverlay_Button:hover{
+    background-color: #fff1;
+    cursor: pointer;
+}
+.MainOverlay_Button i{
+    position: absolute;
+    font-size: 3em;
+}
+
+.MainOverlay_Background{
+    position: absolute;
+    z-index: 8;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+
+    /* background-color: #4a4680; */
+    background: radial-gradient(circle, #23236b 28%, #140d37 100%);
+
+    mask-image: 
+        radial-gradient(circle at 97.6% 5%, white var(--overlay-size), transparent 0%);
+
+    mask-repeat: no-repeat;
+}
+
+/* Central Planet */
+
+.MainOverlay_CentralPlanet{
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    left: calc(50% - 200px);
+    top: calc(50% - 200px);
+    z-index: 5;
+}
+.CentralPlanet_OuterCircle{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    clip-path: circle(50% at 50% 50%);
+    background: linear-gradient(135deg, rgba(59,51,172,1) 1%, rgba(37,39,114,1) 100%);
+}
+
+.CentralPlanet_InnerCircleColor{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    clip-path: circle(44% at 37% 55%);
+    background-color: #160e5b;
+}
+
+.CentralPlanet_InnerCircleBase{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    clip-path: circle(44% at 50% 50%);
+    background: radial-gradient(circle at 80% 15%, rgb(39, 28, 139) 1%, rgba(11,4,48,1) 100%);
+}
+
+.CentralPlanet_Crater1{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    top: -15%;
+    clip-path: circle(8% at 50% 50%);
+    background: linear-gradient(225deg, rgba(12,8,45,1) 45%, #160e5b 55%);
+}
+.CentralPlanet_Crater2{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    top: 16%;
+    left: 16%;
+    clip-path: circle(4% at 50% 50%);
+    background: linear-gradient(225deg, rgba(12,8,45,1) 45%, #160e5b 55%);
+}
+.CentralPlanet_Crater3{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    top: 16%;
+    left: -16%;
+    clip-path: circle(3% at 50% 50%);
+    background: linear-gradient(225deg, rgba(12,8,45,1) 45%, #160e5b 55%);
+}
+
+
+/* Orbital Planet */
+.MainOverlay_OrbitalPlanet{
+    position: absolute;
+    height: 180px;
+    width: 180px;
+    left: calc(30% - 180px);
+    top: calc(40% - 180px);
+    animation: orbitalTranslation 60s ease-in-out infinite forwards;
+    animation-delay: -20s;
+}
+.OrbitalPlanet_OuterCircle{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    clip-path: circle(50% at 50% 50%);
+    background: linear-gradient(306deg, #23236b 20%, #140d37 80%);
+}
+
+@keyframes orbitalTranslation {
+    0%{
+        left: calc(30% - 180px);
+        top: calc(40% - 180px);
+        z-index: 6;
+        scale: 1;
+    }
+    25%{
+        scale: 1.2;
+    }
+    49%{
+        z-index: 6;
+    }
+    50%{
+        left: calc(75% - 180px);
+        top: calc(65% - 180px);
+        z-index: 4;
+        scale: 1;
+    }
+    75%{
+        scale: 0.8;
+    }
+    99%{
+        z-index: 4;
+    }
+    100%{
+        left: calc(30% - 180px);
+        top: calc(40% - 180px);
+        z-index: 6;
+        scale: 1;
+    }
+}
+
+
+.MainOverlay_RandomMeteor{
+    display: flex;
+    position: absolute;
+    height: 100px;
+    width: 600px;
+    /* filter: brightness(0) saturate(100%) invert(62%) sepia(55%) saturate(1200%) hue-rotate(166deg) brightness(97%) contrast(105%); */
+    /* scale: 0.2; */
+    transform: rotateZ(45deg);
+    z-index: 8;
+    animation: meteorTranslation linear infinite forwards;
+    /* animation-duration: ; */
+}
+.MainOverlay_RandomMeteor.c_blue{
+    -webkit-filter: brightness(0) saturate(100%) invert(62%) sepia(55%) saturate(1200%) hue-rotate(166deg) brightness(97%) contrast(105%);
+    filter: brightness(0) saturate(100%) invert(62%) sepia(55%) saturate(1200%) hue-rotate(166deg) brightness(97%) contrast(105%);
+}
+.MainOverlay_RandomMeteor.c_red{
+    -webkit-filter: brightness(0) saturate(100%) invert(17%) sepia(74%) saturate(6107%) hue-rotate(329deg) brightness(97%) contrast(93%);
+    filter: brightness(0) saturate(100%) invert(17%) sepia(74%) saturate(6107%) hue-rotate(329deg) brightness(97%) contrast(93%);
+}
+.MainOverlay_RandomMeteor.c_green{
+    -webkit-filter: brightness(0) saturate(100%) invert(98%) sepia(62%) saturate(1421%) hue-rotate(25deg) brightness(87%) contrast(95%);
+    filter: brightness(0) saturate(100%) invert(98%) sepia(62%) saturate(1421%) hue-rotate(25deg) brightness(87%) contrast(95%);
+}
+.MainOverlay_RandomMeteor.c_yellow{
+    -webkit-filter: brightness(0) saturate(100%) invert(88%) sepia(10%) saturate(6761%) hue-rotate(4deg) brightness(119%) contrast(92%);
+    filter: brightness(0) saturate(100%) invert(88%) sepia(10%) saturate(6761%) hue-rotate(4deg) brightness(119%) contrast(92%);
+}
+
+.MainOverlay_RandomMeteor.plus{
+    scale: 0.3;
+}
+.MainOverlay_RandomMeteor.medium{
+    scale: 0.2;
+}
+.MainOverlay_RandomMeteor.small{
+    scale: 0.1;
+}
+
+.MainOverlay_RandomMeteor.fast{
+    animation-duration: 14s;
+}
+.MainOverlay_RandomMeteor.normal{
+    animation-duration: 10s;
+}
+.MainOverlay_RandomMeteor.slow{
+    animation-duration: 7s;
+}
+
+@keyframes meteorTranslation {
+    0%{
+        transform: rotateZ(45deg) translateX(0px);
+
+    }
+    100%{
+        transform: rotateZ(45deg) translateX(10000px);;
+
+    }
+}
