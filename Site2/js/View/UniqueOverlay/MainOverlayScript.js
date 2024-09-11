@@ -66,9 +66,9 @@ export default class MainOverlayScript {
             });
         });
         this.GenerateMeteors = () => {
-            const nbElements = 10;
+            const nbElements = 60;
             const sizes = ['plus', 'medium', 'small'];
-            const speed = ['fast', 'normal', 'slow'];
+            const speed = ['fast', 'normal', 'slow', 'normal', 'slow'];
             const colors = ['c_blue', 'c_red', 'c_green', 'c_yellow'];
             const Rand = (min, max) => {
                 return Math.floor((Math.random() * max) + min);
@@ -77,8 +77,15 @@ export default class MainOverlayScript {
                 const newStar = document.createElement("div");
                 newStar.innerHTML = `<img src="../../src/meteor.png"/>`;
                 newStar.classList.add("MainOverlay_RandomMeteor", sizes[Rand(0, sizes.length)], speed[Rand(0, speed.length)], colors[Rand(0, colors.length)]);
-                newStar.style.top = `${Rand(-20, -1)}%`;
-                newStar.style.left = `${Rand(-20, -1)}%`;
+                if (i < nbElements / 2) {
+                    newStar.style.top = `${Rand(0, 70) - 25}%`;
+                    newStar.style.left = `${Rand(0, 10) - 25}%`;
+                }
+                else {
+                    newStar.style.top = `${Rand(0, 10) - 25}%`;
+                    newStar.style.left = `${Rand(0, 110) - 25}%`;
+                }
+                newStar.style.animationDelay = `${Rand(0, 20) - 40}s`;
                 const overlayBackground = document.getElementById("MainOverlay_Mask");
                 overlayBackground.appendChild(newStar);
             }

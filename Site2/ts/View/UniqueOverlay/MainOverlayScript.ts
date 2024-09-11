@@ -71,11 +71,11 @@ export default class MainOverlayScript{
     }
 
     GenerateMeteors = () => {
-        const nbElements = 10; // Number of stars & sparkles
+        const nbElements = 60; // Number of stars & sparkles
         // CSS Classes available
         // const shapes = ['sparkle', 'star'];
         const sizes = ['plus', 'medium', 'small'];
-        const speed = ['fast', 'normal', 'slow'];
+        const speed = ['fast', 'normal', 'slow', 'normal', 'slow'];
         const colors = ['c_blue', 'c_red', 'c_green', 'c_yellow'];
         
         const Rand = (min: number, max: number) => {
@@ -94,8 +94,17 @@ export default class MainOverlayScript{
                 speed[Rand(0,speed.length)],
                 colors[Rand(0,colors.length)]
             )
-            newStar.style.top = `${Rand(-20, -1)}%`;
-            newStar.style.left = `${Rand(-20, -1)}%`;
+            if (i < nbElements / 2){
+                newStar.style.top = `${Rand(0, 70) - 25}%`;
+                newStar.style.left = `${Rand(0, 10) - 25}%`;
+                
+            } else {
+                newStar.style.top = `${Rand(0, 10) - 25}%`;
+                newStar.style.left = `${Rand(0, 110) - 25}%`;
+            }
+            newStar.style.animationDelay = `${Rand(0, 20) - 40}s`;
+            // newStar.style.animat
+
             
             const overlayBackground = document.getElementById("MainOverlay_Mask")!;
             overlayBackground.appendChild(newStar);

@@ -119,7 +119,7 @@
     width: 180px;
     left: calc(30% - 180px);
     top: calc(40% - 180px);
-    animation: orbitalTranslation 60s ease-in-out infinite forwards;
+    animation: orbitalTranslation 20s ease-in-out infinite forwards;
     animation-delay: -20s;
 }
 .OrbitalPlanet_OuterCircle{
@@ -127,7 +127,9 @@
     height: inherit;
     width: inherit;
     clip-path: circle(50% at 50% 50%);
-    background: linear-gradient(306deg, #23236b 20%, #140d37 80%);
+    /* background: linear-gradient(306deg, #23236b 20%, #140d37 80%); */
+    /* background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%); */
+
 }
 
 @keyframes orbitalTranslation {
@@ -136,6 +138,8 @@
         top: calc(40% - 180px);
         z-index: 6;
         scale: 1;
+    clip-path: circle(50% at 50% 50%);
+    background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
     }
     25%{
         scale: 1.2;
@@ -148,6 +152,9 @@
         top: calc(65% - 180px);
         z-index: 4;
         scale: 1;
+    clip-path: circle(50% at 50% 50%);
+    background: radial-gradient(circle at 25% 25%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
+
     }
     75%{
         scale: 0.8;
@@ -160,6 +167,9 @@
         top: calc(40% - 180px);
         z-index: 6;
         scale: 1;
+    clip-path: circle(50% at 50% 50%);
+    background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
+
     }
 }
 
@@ -169,12 +179,10 @@
     position: absolute;
     height: 100px;
     width: 600px;
-    /* filter: brightness(0) saturate(100%) invert(62%) sepia(55%) saturate(1200%) hue-rotate(166deg) brightness(97%) contrast(105%); */
-    /* scale: 0.2; */
     transform: rotateZ(45deg);
-    z-index: 8;
+    z-index: 3;
     animation: meteorTranslation linear infinite forwards;
-    /* animation-duration: ; */
+    transform-origin: top left;
 }
 .MainOverlay_RandomMeteor.c_blue{
     -webkit-filter: brightness(0) saturate(100%) invert(62%) sepia(55%) saturate(1200%) hue-rotate(166deg) brightness(97%) contrast(105%);
@@ -204,13 +212,13 @@
 }
 
 .MainOverlay_RandomMeteor.fast{
-    animation-duration: 14s;
+    animation-duration: 21s;
 }
 .MainOverlay_RandomMeteor.normal{
-    animation-duration: 10s;
+    animation-duration: 30s;
 }
 .MainOverlay_RandomMeteor.slow{
-    animation-duration: 7s;
+    animation-duration: 42s;
 }
 
 @keyframes meteorTranslation {
@@ -219,7 +227,6 @@
 
     }
     100%{
-        transform: rotateZ(45deg) translateX(10000px);;
-
+        transform: rotateZ(45deg) translateX(30000px);
     }
 }
