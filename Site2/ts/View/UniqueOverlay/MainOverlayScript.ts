@@ -102,12 +102,12 @@ export default class MainOverlayScript{
                 newStar.style.top = `${Rand(0, 10) - 25}%`;
                 newStar.style.left = `${Rand(0, 110) - 25}%`;
             }
-            newStar.style.animationDelay = `${Rand(0, 20) - 40}s`;
+            newStar.style.animationDelay = `${Rand(0, 30) - 40}s`;
             // newStar.style.animat
 
             
             const overlayBackground = document.getElementById("MainOverlay_Mask")!;
-            overlayBackground.appendChild(newStar);
+            // overlayBackground.appendChild(newStar);
         }
     }
 }
