@@ -1,11 +1,13 @@
+import { ScreenOption } from "../../Utils/GeradorUniqueScreen";
 
-export default class Page3Script{
+export default class Page3Script implements ScreenOption{
 
     constructor(){
         // this.SetupEvents();
     }
 
-    SetupEvents = () => {
+    screenName: string = "Page3";
+    screenSetupEvents = () => {
         document.querySelectorAll(".Page3Content_PolaroidPhoto").forEach(el => {
             const photo = (el.querySelector(".Page3Content_PolaroidBackground") as HTMLElement);
             const background = (el.querySelector(".Page3Content_PolaroidImageWrapper") as HTMLElement);

@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { ScreenOption } from '../../Utils/GeradorUniqueScreen';
 
 interface HideColumns_Options{
     hideModel?: "alternate" | "alternate2" | "before" | "after"
@@ -6,11 +7,13 @@ interface HideColumns_Options{
     instant?: boolean
 }
 
-export default class Page2Script{
-        
+export default class Page2Script implements ScreenOption{
+    
     timeoutArr: NodeJS.Timeout[] = []
-
-    SetupEvents = () => {
+    
+    screenName: string = "Page2";
+    
+    screenSetupEvents = () => {
         document.getElementById("Page2Content")?.addEventListener("click", (e) => {
             const el = (e.target as HTMLElement);
             const elTarget = el.closest(`.Page2Content_Column`);

@@ -1,7 +1,8 @@
 export default class Page1Script {
     constructor() {
         this.timeoutArr = [];
-        this.SetupEvents = () => {
+        this.screenName = "Page1";
+        this.screenSetupEvents = () => {
         };
         this.onEnter = () => {
             this.ClearTimeout();

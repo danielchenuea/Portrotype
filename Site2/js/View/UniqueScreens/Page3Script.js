@@ -1,6 +1,7 @@
 export default class Page3Script {
     constructor() {
-        this.SetupEvents = () => {
+        this.screenName = "Page3";
+        this.screenSetupEvents = () => {
             document.querySelectorAll(".Page3Content_PolaroidPhoto").forEach(el => {
                 const photo = el.querySelector(".Page3Content_PolaroidBackground");
                 const background = el.querySelector(".Page3Content_PolaroidImageWrapper");

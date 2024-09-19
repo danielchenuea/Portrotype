@@ -2,7 +2,8 @@ import gsap from 'gsap';
 export default class Page2Script {
     constructor() {
         this.timeoutArr = [];
-        this.SetupEvents = () => {
+        this.screenName = "Page2";
+        this.screenSetupEvents = () => {
             var _a, _b;
             (_a = document.getElementById("Page2Content")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
                 const el = e.target;

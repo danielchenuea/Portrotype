@@ -15,6 +15,7 @@ export default class PageInicialScript {
         this.choosePhrase = ["Huh", "Wow", "Hey", "Sup", "Yo", "Hello", "Oh", "Olá"];
         this.randomPhrases = [];
         this.chosenPhrase = "";
+        this.screenName = "PageInicial";
         this.FirstTime = () => {
             this.randomPhrases = this.choosePhrase
                 .map(value => ({ value, sort: Math.random() }))
@@ -70,7 +71,7 @@ export default class PageInicialScript {
                 ease: 'sine.in',
             }).addPause(0.8);
         });
-        this.SetupEvents = () => {
+        this.screenSetupEvents = () => {
             this.FirstTime();
             const mask = document.getElementById("pageInicialMask");
             document.addEventListener("mouseleave", (event) => {

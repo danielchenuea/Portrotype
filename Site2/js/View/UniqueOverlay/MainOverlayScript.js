@@ -11,8 +11,25 @@ import gsap from 'gsap';
 export default class MainOverlayScript {
     constructor() {
         this.isOpen = false;
-        this.SetupEvents = () => {
+        this.OverlayButtons = [];
+        this.overlayName = "MainOverlay";
+        this.overlaySetupEvents = () => {
             var _a;
+            const anchorContainer = document.getElementById("MainOverlay_AnchorWrapper");
+            const uniqueContainer = document.getElementById("UniqueScreenContainer");
+            for (let i = 0; i < uniqueContainer.children.length; i++) {
+                const element = uniqueContainer.children[i];
+                element.classList.add("UniqueScreenPage");
+                const htmlFile = element.id;
+                let file = 'views/UniqueScreens/' + htmlFile + '.html';
+                const buttonAnchor = document.createElement("div");
+                buttonAnchor.classList.add("MainOverlay_AnchorLink");
+                buttonAnchor.setAttribute("page-id", `${i}`);
+                buttonAnchor.innerHTML = `
+                <div class="MainOverlay_AnchorIcon"></div>
+                <div class="MainOverlay_AnchorText">${htmlFile}</div>`;
+                anchorContainer.appendChild(buttonAnchor);
+            }
             const mask = document.getElementById("MainOverlay_Mask");
             if (mask)
                 mask.style.setProperty("--overlay-size", "0%");
@@ -20,6 +37,16 @@ export default class MainOverlayScript {
                 this.ClickOverlay();
             });
             this.GenerateMeteors();
+            document.querySelectorAll(".MainOverlay_AnchorLink").forEach(el => {
+                el.addEventListener("click", (e) => {
+                    const target = el;
+                    this.CloseOverlay().then(() => {
+                        var _a;
+                        if (this.PageChangerHandler)
+                            this.PageChangerHandler(parseInt((_a = target.getAttribute("page-id")) !== null && _a !== void 0 ? _a : "0"));
+                    });
+                });
+            });
         };
         this.onEnter = () => {
         };
@@ -31,11 +58,9 @@ export default class MainOverlayScript {
         };
         this.ClickOverlay = () => __awaiter(this, void 0, void 0, function* () {
             if (this.isOpen) {
-                this.isOpen = !this.isOpen;
                 this.CloseOverlay();
             }
             else {
-                this.isOpen = !this.isOpen;
                 this.OpenOverlay();
             }
         });
@@ -48,7 +73,10 @@ export default class MainOverlayScript {
             }, {
                 "--overlay-size": `100%`,
                 ease: 'sine.inOut',
-                duration: 0.3
+                duration: 0.3,
+                onComplete: () => {
+                    this.isOpen = true;
+                }
             });
         });
         this.CloseOverlay = () => __awaiter(this, void 0, void 0, function* () {
@@ -62,6 +90,7 @@ export default class MainOverlayScript {
                 onComplete: () => {
                     if (mask)
                         mask.style.display = "none";
+                    this.isOpen = false;
                 }
             });
         });

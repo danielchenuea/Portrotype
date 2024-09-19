@@ -29,6 +29,7 @@ export interface OverlayOption {
     onEnter?: () => void;
     onLeaving?: () => void;
     onLeave?: () => void;
+    PageChangerHandler?: (newPage: number) => void;
 }
 export type AllowedScreenCommands = "screenSetupEvents" | "onEntering" | "onEnter" | "onLeaving" | "onLeave"
 export type AllowedOverlayCommands = "overlaySetupEvents" | "onEntering" | "onEnter" | "onLeaving" | "onLeave"
@@ -136,7 +137,9 @@ export default class GeradorUniqueScreen{
                         if(response.ok){
                             response.text().then((body) => {
                                 element.innerHTML = body;
+                                this.SetOverlayScript(htmlFile, this.ChangeToPage.bind(this))
                                 this.ExecuteOverlayCommand(htmlFile, "overlaySetupEvents")
+                                // this.SetOverlayScript(htmlFile, this.ChangeToPage.bind(this))
                             });
                         }
                     })
@@ -216,6 +219,12 @@ export default class GeradorUniqueScreen{
         return this.screenEvents.find(el => el.screenName == pageId)
     }
     
+    SetOverlayScript(pageId: string, command: (numberPage: number) => void){
+        let currOverlay = this.GetOverlayScript(pageId);
+        if(currOverlay == undefined) return;
+
+        currOverlay.PageChangerHandler = command;
+    }
     ExecuteOverlayCommand(pageId: string, command: AllowedOverlayCommands){
         let currOverlay = this.GetOverlayScript(pageId);
         if(currOverlay == undefined) return;
@@ -301,5 +310,8 @@ export default class GeradorUniqueScreen{
     }
     StopScrolling(){
         this.isScrolling = false;
+    }
+    Test(){
+        console.log(this.idDiv);
     }
 }

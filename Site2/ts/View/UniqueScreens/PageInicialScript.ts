@@ -1,8 +1,9 @@
 import gsap from 'gsap';
 import * as lodash from 'lodash';
+import { ScreenOption } from '../../Utils/GeradorUniqueScreen';
 // import gsap from 'gsap';
 
-export default class PageInicialScript{
+export default class PageInicialScript implements ScreenOption{
     
     delayTimeout?: NodeJS.Timeout
     delayOn: boolean = false
@@ -14,6 +15,8 @@ export default class PageInicialScript{
     constructor(){
         // this.SetupEvents();
     }
+
+    screenName: string = "PageInicial";
 
     FirstTime = () => {
         this.randomPhrases = this.choosePhrase
@@ -75,7 +78,7 @@ export default class PageInicialScript{
         }).addPause(0.8)
     }
 
-    SetupEvents = () => {
+    screenSetupEvents = () => {
         this.FirstTime();
 
         const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 

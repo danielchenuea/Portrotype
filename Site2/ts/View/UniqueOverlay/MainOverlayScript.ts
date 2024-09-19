@@ -1,7 +1,12 @@
 
 import gsap from 'gsap';
+import { OverlayOption } from '../../Utils/GeradorUniqueScreen';
 
-export default class MainOverlayScript{
+interface OverlayButton{
+
+}
+
+export default class MainOverlayScript implements OverlayOption{
     
     isOpen = false;
 
@@ -9,7 +14,28 @@ export default class MainOverlayScript{
         // this.SetupEvents();
     }
 
-    SetupEvents = () => {
+    OverlayButtons: OverlayButton[] = []
+    PageChangerHandler?: (pageNumber: number) => void;
+
+    overlayName: string = "MainOverlay";
+    overlaySetupEvents = () => {
+        const anchorContainer = document.getElementById("MainOverlay_AnchorWrapper");
+        const uniqueContainer = document.getElementById("UniqueScreenContainer");
+        for (let i = 0; i < uniqueContainer!.children.length; i++) {
+            const element = uniqueContainer!.children[i];
+            element.classList.add("UniqueScreenPage");
+            const htmlFile = element.id;
+            let file = 'views/UniqueScreens/' + htmlFile + '.html'
+            
+            const buttonAnchor = document.createElement("div");
+            buttonAnchor.classList.add("MainOverlay_AnchorLink");
+            buttonAnchor.setAttribute("page-id", `${i}`);
+            buttonAnchor.innerHTML = `
+                <div class="MainOverlay_AnchorIcon"></div>
+                <div class="MainOverlay_AnchorText">${htmlFile}</div>`;
+            anchorContainer!.appendChild(buttonAnchor);
+        }
+
         const mask = document.getElementById("MainOverlay_Mask");
         if (mask) mask.style.setProperty("--overlay-size", "0%");
 
@@ -17,6 +43,16 @@ export default class MainOverlayScript{
             this.ClickOverlay();
         });
         this.GenerateMeteors();
+
+        document.querySelectorAll(".MainOverlay_AnchorLink").forEach(el => {
+            el.addEventListener("click", (e) => {
+                const target = el as HTMLDivElement;
+
+                this.CloseOverlay().then(() => {
+                    if (this.PageChangerHandler) this.PageChangerHandler(parseInt(target.getAttribute("page-id") ?? "0"));
+                })
+            })
+        })
     }
 
     onEnter = () => {
@@ -34,10 +70,10 @@ export default class MainOverlayScript{
 
     ClickOverlay = async () => {
         if (this.isOpen){ // Close
-            this.isOpen = !this.isOpen;
+            // this.isOpen = !this.isOpen;
             this.CloseOverlay();
         } else { // Open
-            this.isOpen = !this.isOpen;
+            // this.isOpen = !this.isOpen;
             this.OpenOverlay();
         }
     }
@@ -51,7 +87,10 @@ export default class MainOverlayScript{
         }, {
             "--overlay-size": `100%`,
             ease: 'sine.inOut',
-            duration: 0.3
+            duration: 0.3,
+            onComplete: () => {
+                this.isOpen = true;
+            }
         })
     }
 
@@ -66,6 +105,7 @@ export default class MainOverlayScript{
             duration: 0.3,
             onComplete: () => {
                 if (mask) mask.style.display = "none";
+                this.isOpen = false
             }
         });
     }

@@ -227,7 +227,7 @@
 
     }
     100%{
-        transform: rotateZ(45deg) translateX(30000px);
+        transform: rotateZ(45deg) translateX(24000px);
     }
 }
 
@@ -243,13 +243,38 @@
     height: 100%;
 }
 .MainOverlay_AnchorLink{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: 60%;
     height: 100px;
+    background-color: #fff0;
+    transition: background-color 80ms ease-in-out;
+    border: 2px solid #fff;
+    margin-top: -2px;
+    border-left: none;
+    border-right: none;
+
+}
+.MainOverlay_AnchorLink:hover{
     background-color: #fff2;
+    cursor: pointer;
 }
 .MainOverlay_AnchorIcon{
-
+    position: absolute;
+    font-size: 3em;
+    color: #fff;
 }
 .MainOverlay_AnchorText{
+    position: absolute;
+    font-size: 2em;
+    color: #fff;
+    font-family: 'BebasNeue-Regular';
+    font-weight: 600;
+}
 
+@font-face {
+    font-family: "BebasNeue-Regular";
+    src: url("../../../src/fonts/BebasNeue-Regular.ttf");
 }

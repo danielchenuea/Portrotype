@@ -1,5 +1,6 @@
+import { ScreenOption } from "../../Utils/GeradorUniqueScreen";
 
-export default class Page1Script{
+export default class Page1Script implements ScreenOption{
     
     timeoutArr: NodeJS.Timeout[] = []
 
@@ -7,10 +8,10 @@ export default class Page1Script{
         // this.SetupEvents();
     }
 
-    SetupEvents = () => {
+    screenName: string = "Page1";
+    screenSetupEvents = () => {
 
     }
-
     onEnter = () => {
         this.ClearTimeout();
 

@@ -1,11 +1,13 @@
+import { ScreenOption } from "../../Utils/GeradorUniqueScreen"
 
-export default class Page3Script{
+export default class Page3Script implements ScreenOption{
 
     constructor(){
         // this.SetupEvents();
     }
+    screenName: string = "Page3"
 
-    SetupEvents = () => {
+    screenSetupEvents = () => {
 
     }
 
