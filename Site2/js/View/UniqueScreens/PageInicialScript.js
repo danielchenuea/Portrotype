@@ -99,7 +99,7 @@ export default class PageInicialScript {
                     duration: 0.2,
                     ease: 'sine.in',
                 });
-            }, 100));
+            }, 50));
             this.InitiatePage();
         };
         this.onEnter = () => {
