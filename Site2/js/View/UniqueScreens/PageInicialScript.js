@@ -72,7 +72,19 @@ export default class PageInicialScript {
             }).addPause(0.8);
         });
         this.screenSetupEvents = () => {
-            this.FirstTime();
+            ScrollTrigger.create({
+                trigger: "#pageInicialMask",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: true,
+                fastScrollEnd: true,
+                onEnter: () => {
+                    this.ShowScreenRoutine();
+                },
+                onLeave: () => {
+                    this.onLeaving();
+                }
+            });
             const mask = document.getElementById("pageInicialMask");
             document.addEventListener("mouseleave", (event) => {
             });
@@ -91,8 +103,8 @@ export default class PageInicialScript {
             window.addEventListener("mousemove", lodash.throttle((event) => {
                 const mask = document.getElementById("pageInicialMask");
                 const { clientX, clientY } = event;
-                const x = ((clientX / window.innerWidth) * 100).toFixed(3);
-                const y = ((clientY / window.innerHeight) * 100).toFixed(3);
+                const x = ((clientX / window.innerWidth) * 100).toFixed(5);
+                const y = ((clientY / window.innerHeight) * 100).toFixed(5);
                 gsap.to(mask, {
                     '--x-position': `${x}%`,
                     '--y-position': `${y}%`,

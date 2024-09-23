@@ -8,11 +8,14 @@ export default class GeradorUniqueScreen {
         this.currentPage = 0;
         this.isScrolling = false;
         this.enableScroll = true;
+        this.enableFreeScroll = false;
         this.pageTransitionDelay = 600;
         this.touchScreenY = 0;
         this.idDiv = options.idDiv;
         this.screenEvents = options.screenEvents;
         this.overlayEvents = options.overlayEvents;
+        if (options.enableFreeScroll != undefined)
+            this.enableFreeScroll = options.enableFreeScroll;
         if (options.backgroundEvent != null)
             this.backgroundEvent = options.backgroundEvent;
         this.SetupHTML()
@@ -29,6 +32,8 @@ export default class GeradorUniqueScreen {
                 mainContentDiv.classList.add("UniqueScreenContainer");
                 mainContentDiv.id = "UniqueScreenContainer";
                 mainContentDiv.innerHTML = screensDiv.innerHTML;
+                if (!this.enableFreeScroll)
+                    mainContentDiv.style.overflowY = "hidden";
                 for (let i = 0; i < mainContentDiv.children.length; i++) {
                     const element = mainContentDiv.children[i];
                     element.classList.add("UniqueScreenPage");
@@ -82,6 +87,40 @@ export default class GeradorUniqueScreen {
         return this;
     }
     SetupEvents() {
+        if (!this.enableFreeScroll) {
+            document.addEventListener("wheel", (event) => {
+                if (this.enableScroll && !this.isScrolling) {
+                    this.StartScrolling();
+                    if (event.deltaY > 0 && this.IsAtBottom(this.GetCurrentPageHTML())) {
+                        this.NextPage();
+                    }
+                    else if (event.deltaY < 0 && this.IsAtTop(this.GetCurrentPageHTML())) {
+                        this.PreviousPage();
+                    }
+                    else {
+                        this.StopScrolling();
+                    }
+                }
+            }, false);
+            document.addEventListener('touchstart', (e) => {
+                this.touchScreenY = e.touches[0].clientY;
+            });
+            document.addEventListener('touchend', (e) => {
+                if (this.enableScroll && !this.isScrolling) {
+                    this.StartScrolling();
+                    var te = e.changedTouches[0].clientY;
+                    if (this.touchScreenY > te + 5 && this.IsAtBottom(this.GetCurrentPageHTML())) {
+                        this.NextPage();
+                    }
+                    else if (this.touchScreenY < te - 5 && this.IsAtTop(this.GetCurrentPageHTML())) {
+                        this.PreviousPage();
+                    }
+                    else {
+                        this.StopScrolling();
+                    }
+                }
+            });
+        }
         window.addEventListener('resize', (e) => {
             this.ScrollToCurrent();
         });

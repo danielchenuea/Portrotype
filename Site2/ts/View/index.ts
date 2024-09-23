@@ -17,6 +17,7 @@ import MainOverlayScript from "./UniqueOverlay/MainOverlayScript.js";
 
 export const uniqueScreen = new GeradorUniqueScreen({
     idDiv: "UniqueScreenMain",
+    enableFreeScroll: true,
     overlayEvents: [
         new MainOverlayScript
     ],

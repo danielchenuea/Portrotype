@@ -79,7 +79,21 @@ export default class PageInicialScript implements ScreenOption{
     }
 
     screenSetupEvents = () => {
-        this.FirstTime();
+        // this.FirstTime();
+
+        ScrollTrigger.create({
+            trigger: "#pageInicialMask",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+            fastScrollEnd: true,
+            onEnter: () => {
+                this.ShowScreenRoutine();
+            },
+            onLeave: () => {
+                this.onLeaving();
+            }
+        })
 
         const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
         document.addEventListener("mouseleave", (event) => {
@@ -108,8 +122,8 @@ export default class PageInicialScript implements ScreenOption{
         window.addEventListener("mousemove", lodash.throttle((event) => {
             const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
             const {clientX, clientY} = event;
-            const x = ((clientX / window.innerWidth) * 100).toFixed(3);
-            const y = ((clientY / window.innerHeight) * 100).toFixed(3);
+            const x = ((clientX / window.innerWidth) * 100).toFixed(5);
+            const y = ((clientY / window.innerHeight) * 100).toFixed(5);
 
             gsap.to(mask, {
                 '--x-position': `${x}%`,
