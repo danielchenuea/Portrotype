@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import * as lodash from 'lodash';
 import { ScreenOption } from '../../Utils/GeradorUniqueScreen';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // import gsap from 'gsap';
 
 export default class PageInicialScript implements ScreenOption{
@@ -14,6 +15,7 @@ export default class PageInicialScript implements ScreenOption{
 
     constructor(){
         // this.SetupEvents();
+        gsap.registerPlugin(ScrollTrigger);
     }
 
     screenName: string = "PageInicial";
@@ -85,13 +87,15 @@ export default class PageInicialScript implements ScreenOption{
             trigger: "#pageInicialMask",
             start: "top top",
             end: "bottom bottom",
-            scrub: true,
-            fastScrollEnd: true,
+            // scrub: true,
+            // fastScrollEnd: true,
             onEnter: () => {
-                this.ShowScreenRoutine();
+                // this.ShowScreenRoutine();
+                console.log("enter");
             },
             onLeave: () => {
-                this.onLeaving();
+                console.log("leave");
+                // this.onLeaving();
             }
         })
 
@@ -124,6 +128,14 @@ export default class PageInicialScript implements ScreenOption{
             const {clientX, clientY} = event;
             const x = ((clientX / window.innerWidth) * 100).toFixed(5);
             const y = ((clientY / window.innerHeight) * 100).toFixed(5);
+
+            // gsap.to(mask,
+            // {
+            //     '--x-position': `${x}%`,
+            //     '--y-position': `${y}%`,
+            //     duration: 0.2,
+            //     ease: 'sine.in',
+            // })
 
             gsap.to(mask, {
                 '--x-position': `${x}%`,

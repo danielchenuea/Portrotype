@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import gsap from 'gsap';
 import * as lodash from 'lodash';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export default class PageInicialScript {
     constructor() {
         this.delayOn = false;
@@ -76,13 +77,11 @@ export default class PageInicialScript {
                 trigger: "#pageInicialMask",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: true,
-                fastScrollEnd: true,
                 onEnter: () => {
-                    this.ShowScreenRoutine();
+                    console.log("enter");
                 },
                 onLeave: () => {
-                    this.onLeaving();
+                    console.log("leave");
                 }
             });
             const mask = document.getElementById("pageInicialMask");
@@ -149,6 +148,7 @@ export default class PageInicialScript {
                 duration: 0.2
             });
         };
+        gsap.registerPlugin(ScrollTrigger);
     }
     InitiatePage() {
         const mask = document.getElementById("pageInicialMask");
