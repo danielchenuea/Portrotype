@@ -26,47 +26,7 @@ export const uniqueScreen = new GeradorUniqueScreen({
         new Page1Script,
         new Page2Script,
         new Page3Script,
-        new PageSocialScript,
-        // {
-        //     screenName: "PageInicial",
-        //     screenSetupEvents: _PageInicialScript.screenSetupEvents,
-        //     onEnter: _PageInicialScript.onEnter,
-        //     onLeave: _PageInicialScript.onLeave,
-        //     onEntering: _PageInicialScript.onEntering,
-        //     onLeaving: _PageInicialScript.onLeaving,
-        // },
-        // {
-        //     screenName: "Page1",
-        //     screenSetupEvents: _Page1Script.screenSetupEvents,
-        //     onEnter: _Page1Script.onEnter,
-        //     onLeave: _Page1Script.onLeave,
-        //     onEntering: _Page1Script.onEntering,
-        //     onLeaving: _Page1Script.onLeaving,
-        // },
-        // {
-        //     screenName: "Page2",
-        //     screenSetupEvents: _Page2Script.screenSetupEvents,
-        //     onEnter: _Page2Script.onEnter,
-        //     onLeave: _Page2Script.onLeave,
-        //     onEntering: _Page2Script.onEntering,
-        //     onLeaving: _Page2Script.onLeaving,
-        // },
-        // {
-        //     screenName: "Page3",
-        //     screenSetupEvents: _Page3Script.screenSetupEvents,
-        //     onEnter: _Page3Script.onEnter,
-        //     onLeave: _Page3Script.onLeave,
-        //     onEntering: _Page3Script.onEntering,
-        //     onLeaving: _Page3Script.onLeaving,
-        // },
-        // {
-        //     screenName: "PageSocial",
-        //     screenSetupEvents: _PageSocialScript.screenSetupEvents,
-        //     onEnter: _PageSocialScript.onEnter,
-        //     onLeave: _PageSocialScript.onLeave,
-        //     onEntering: _PageSocialScript.onEntering,
-        //     onLeaving: _PageSocialScript.onLeaving,
-        // },
+        new PageSocialScript
     ],
     backgroundEvent: (backgroundDIV: HTMLDivElement) => {
         const nbElements = 50; // Number of stars & sparkles

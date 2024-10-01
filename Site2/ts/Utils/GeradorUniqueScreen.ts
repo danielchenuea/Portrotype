@@ -107,21 +107,6 @@ export default class GeradorUniqueScreen{
                         screensDiv.removeChild(screensDiv.firstChild);
                     }
                     screensDiv.appendChild(mainContentDiv);
-                    // document.querySelectorAll('.UniqueScreenPage').forEach((el) => {  
-                    //     const htmlFile = el.id;
-                    //     let file = 'views/UniqueScreens/' + htmlFile + '.html'
-                    //     this.screenNames.push(htmlFile);
-                    //     this.numPages += 1;
-            
-                    //     fetch(file).then((response) => {
-                    //         if(response.ok){
-                    //             response.text().then((body) => {
-                    //                 el.innerHTML = body;
-                    //                 this.ExecuteScreenCommand(htmlFile, "screenSetupEvents")
-                    //             });
-                    //         }
-                    //     })
-                    // })
             }
 
             if (overlayDiv) {

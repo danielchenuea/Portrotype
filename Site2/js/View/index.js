@@ -16,7 +16,7 @@ export const uniqueScreen = new GeradorUniqueScreen({
         new Page1Script,
         new Page2Script,
         new Page3Script,
-        new PageSocialScript,
+        new PageSocialScript
     ],
     backgroundEvent: (backgroundDIV) => {
         const nbElements = 50;

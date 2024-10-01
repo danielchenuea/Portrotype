@@ -73,18 +73,18 @@ export default class PageInicialScript {
             }).addPause(0.8);
         });
         this.screenSetupEvents = () => {
-            ScrollTrigger.create({
-                trigger: "#pageInicialMask",
-                start: "top top",
-                end: "bottom bottom",
-                onEnter: () => {
-                    console.log("enter");
-                },
-                onLeave: () => {
-                    console.log("leave");
-                }
-            });
             const mask = document.getElementById("pageInicialMask");
+            let tlShow = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#pageInicialMask",
+                    start: "bottom 45%",
+                    end: "bottom 55%",
+                    markers: true
+                },
+            });
+            tlShow.to("#pageInicialMask", {
+                x: 800
+            });
             document.addEventListener("mouseleave", (event) => {
             });
             document.addEventListener("mouseenter", (event) => {

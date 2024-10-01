@@ -82,24 +82,52 @@ export default class PageInicialScript implements ScreenOption{
 
     screenSetupEvents = () => {
         // this.FirstTime();
-
-        ScrollTrigger.create({
-            trigger: "#pageInicialMask",
-            start: "top top",
-            end: "bottom bottom",
-            // scrub: true,
-            // fastScrollEnd: true,
-            onEnter: () => {
-                // this.ShowScreenRoutine();
-                console.log("enter");
-            },
-            onLeave: () => {
-                console.log("leave");
-                // this.onLeaving();
-            }
-        })
-
         const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
+
+        let tlShow = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#pageInicialMask",
+                start: "bottom 45%",
+                end: "bottom 55%",
+                // scrub: true,
+                markers: true
+            },
+
+        });
+        tlShow.to("#pageInicialMask", {
+            x: 800
+        });
+        // tlShow.fromTo("#pageInicialMask", {
+        //     "--circle-size1": `0%`,
+        //     "--circle-size2": `0%`,
+        //     "--circle-size3": `0%`,
+        //     duration: 0.2,
+        //     ease: "sine"
+        // }, {
+        //     "--circle-size1": `30%`,
+        //     "--circle-size2": `34%`,
+        //     "--circle-size3": `34.4%`,
+        //     duration: 0.2,
+        // });
+
+        // ScrollTrigger.create({
+        //     trigger: "#pageInicialMask",
+        //     start: "top center",
+        //     end: "bottom center",
+        //     scrub: true,
+        //     // markers: 
+        //     // fastScrollEnd: true,
+        //     onEnter: () => {
+        //         // this.ShowScreenRoutine();
+        //         console.log("enter");
+        //     },
+        //     onLeave: () => {
+        //         console.log("leave");
+        //         // this.onLeaving();
+        //     }
+        // })
+
+        // const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
         document.addEventListener("mouseleave", (event) => {
             // console.log("exit")     
             // gsap.to(mask, {
