@@ -36,19 +36,23 @@ export default class GeradorUniqueScreen {
                     mainContentDiv.style.overflowY = "hidden";
                 for (let i = 0; i < mainContentDiv.children.length; i++) {
                     const element = mainContentDiv.children[i];
-                    element.classList.add("UniqueScreenPage");
-                    const htmlFile = element.id;
-                    let file = 'views/UniqueScreens/' + htmlFile + '.html';
-                    this.screenNames.push(htmlFile);
-                    this.numPages += 1;
-                    fetch(file).then((response) => {
-                        if (response.ok) {
-                            response.text().then((body) => {
-                                element.innerHTML = body;
-                                this.ExecuteScreenCommand(htmlFile, "screenSetupEvents");
-                            });
-                        }
-                    });
+                    if (element.hasAttribute("spacer")) {
+                    }
+                    else {
+                        element.classList.add("UniqueScreenPage");
+                        const htmlFile = element.id;
+                        let file = 'views/UniqueScreens/' + htmlFile + '.html';
+                        this.screenNames.push(htmlFile);
+                        this.numPages += 1;
+                        fetch(file).then((response) => {
+                            if (response.ok) {
+                                response.text().then((body) => {
+                                    element.innerHTML = body;
+                                    this.ExecuteScreenCommand(htmlFile, "screenSetupEvents");
+                                });
+                            }
+                        });
+                    }
                 }
                 while (screensDiv.firstChild) {
                     screensDiv.removeChild(screensDiv.firstChild);

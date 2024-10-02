@@ -27,3 +27,15 @@
     height: 100vh;
     overflow-y: auto;
 }
+
+.spacerInicial:after{
+    content: "";
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    z-index: 2;
+    background: linear-gradient(90deg, #9932cc, #ff1493, orange);
+    width: 100%;
+    height: 12rem;
+    position: absolute;
+    bottom: -6rem;
+    left: 0;
+}

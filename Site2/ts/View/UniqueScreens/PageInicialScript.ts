@@ -87,22 +87,22 @@ export default class PageInicialScript implements ScreenOption{
         let tlShow = gsap.timeline({
             scrollTrigger: {
                 trigger: "#pageInicialMask",
-                start: "bottom 45%",
-                end: "bottom 55%",
+                start: "95% 50%",
+                end: "95% 55%",
+                toggleActions: "play none none reverse",
                 // scrub: true,
                 markers: true
             },
 
         });
         tlShow.to("#pageInicialMask", {
-            x: 800
+            "--circle-size1": `0%`,
+            "--circle-size2": `0%`,
+            "--circle-size3": `0%`,
+            duration: 0.2,
+            ease: "sine"
         });
         // tlShow.fromTo("#pageInicialMask", {
-        //     "--circle-size1": `0%`,
-        //     "--circle-size2": `0%`,
-        //     "--circle-size3": `0%`,
-        //     duration: 0.2,
-        //     ease: "sine"
         // }, {
         //     "--circle-size1": `30%`,
         //     "--circle-size2": `34%`,
@@ -128,7 +128,7 @@ export default class PageInicialScript implements ScreenOption{
         // })
 
         // const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
-        document.addEventListener("mouseleave", (event) => {
+        // document.addEventListener("mouseleave", (event) => {
             // console.log("exit")     
             // gsap.to(mask, {
             //     "--circle-size1": `0%`,
@@ -137,39 +137,30 @@ export default class PageInicialScript implements ScreenOption{
             //     duration: 0.1,
             //     ease: 'sine.in',
             // })
-        });
-        document.addEventListener("mouseenter", (event) => {
+        // });
+        // document.addEventListener("mouseenter", (event: MouseEvent) => {
+        //     const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
+        //     const {clientX, clientY} = event;
+        //     const x = ((clientX / window.innerWidth) * 100).toFixed(3);
+        //     const y = ((clientY / window.innerHeight) * 100).toFixed(3);
+        //     console.log(x ,y)
+        //     gsap.to(mask, {
+        //         '--x-position': `${x}%`,
+        //         '--y-position': `${y}%`,
+        //         duration: 0.5,
+        //         ease: 'sine.in',
+        //     })
+        // });
+        mask.addEventListener("mousemove", lodash.throttle((event: MouseEvent) => {
             const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
-            const {clientX, clientY} = event;
-            const x = ((clientX / window.innerWidth) * 100).toFixed(3);
-            const y = ((clientY / window.innerHeight) * 100).toFixed(3);
-
+            const {left, top} = ((event.target as HTMLDivElement).closest(".pageInicial_BackgroundMask") as HTMLDivElement).getBoundingClientRect();
+            const x = (event.clientX - left).toFixed(0);
+            const y = (event.clientY - top).toFixed(0);
             gsap.to(mask, {
-                '--x-position': `${x}%`,
-                '--y-position': `${y}%`,
-                duration: 0.2,
-                ease: 'sine.in',
-            })
-        });
-        window.addEventListener("mousemove", lodash.throttle((event) => {
-            const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
-            const {clientX, clientY} = event;
-            const x = ((clientX / window.innerWidth) * 100).toFixed(5);
-            const y = ((clientY / window.innerHeight) * 100).toFixed(5);
-
-            // gsap.to(mask,
-            // {
-            //     '--x-position': `${x}%`,
-            //     '--y-position': `${y}%`,
-            //     duration: 0.2,
-            //     ease: 'sine.in',
-            // })
-
-            gsap.to(mask, {
-                '--x-position': `${x}%`,
-                '--y-position': `${y}%`,
-                duration: 0.2,
-                ease: 'sine.in',
+                '--x-position': `${x}px`,
+                '--y-position': `${y}px`,
+                duration: 0.3,
+                ease: 'sine.out',
             })
         }, 50))
         this.InitiatePage();

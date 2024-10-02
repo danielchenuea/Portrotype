@@ -77,38 +77,29 @@ export default class PageInicialScript {
             let tlShow = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#pageInicialMask",
-                    start: "bottom 45%",
-                    end: "bottom 55%",
+                    start: "95% 50%",
+                    end: "95% 55%",
+                    toggleActions: "play none none reverse",
                     markers: true
                 },
             });
             tlShow.to("#pageInicialMask", {
-                x: 800
+                "--circle-size1": `0%`,
+                "--circle-size2": `0%`,
+                "--circle-size3": `0%`,
+                duration: 0.2,
+                ease: "sine"
             });
-            document.addEventListener("mouseleave", (event) => {
-            });
-            document.addEventListener("mouseenter", (event) => {
+            mask.addEventListener("mousemove", lodash.throttle((event) => {
                 const mask = document.getElementById("pageInicialMask");
-                const { clientX, clientY } = event;
-                const x = ((clientX / window.innerWidth) * 100).toFixed(3);
-                const y = ((clientY / window.innerHeight) * 100).toFixed(3);
+                const { left, top } = event.target.closest(".pageInicial_BackgroundMask").getBoundingClientRect();
+                const x = (event.clientX - left).toFixed(0);
+                const y = (event.clientY - top).toFixed(0);
                 gsap.to(mask, {
-                    '--x-position': `${x}%`,
-                    '--y-position': `${y}%`,
-                    duration: 0.2,
-                    ease: 'sine.in',
-                });
-            });
-            window.addEventListener("mousemove", lodash.throttle((event) => {
-                const mask = document.getElementById("pageInicialMask");
-                const { clientX, clientY } = event;
-                const x = ((clientX / window.innerWidth) * 100).toFixed(5);
-                const y = ((clientY / window.innerHeight) * 100).toFixed(5);
-                gsap.to(mask, {
-                    '--x-position': `${x}%`,
-                    '--y-position': `${y}%`,
-                    duration: 0.2,
-                    ease: 'sine.in',
+                    '--x-position': `${x}px`,
+                    '--y-position': `${y}px`,
+                    duration: 0.3,
+                    ease: 'sine.out',
                 });
             }, 50));
             this.InitiatePage();

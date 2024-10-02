@@ -19,9 +19,7 @@ export default class MainOverlayScript {
             const uniqueContainer = document.getElementById("UniqueScreenContainer");
             for (let i = 0; i < uniqueContainer.children.length; i++) {
                 const element = uniqueContainer.children[i];
-                element.classList.add("UniqueScreenPage");
                 const htmlFile = element.id;
-                let file = 'views/UniqueScreens/' + htmlFile + '.html';
                 const buttonAnchor = document.createElement("div");
                 buttonAnchor.classList.add("MainOverlay_AnchorLink");
                 buttonAnchor.setAttribute("page-id", `${i}`);
