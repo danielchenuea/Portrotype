@@ -1,10 +1,27 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export default class Page2Script {
     constructor() {
         this.timeoutArr = [];
         this.screenName = "Page2";
         this.screenSetupEvents = () => {
             var _a, _b;
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#Page2Content",
+                    start: "top 50%",
+                    end: "top 55%",
+                    toggleActions: "play none none reverse",
+                    markers: true
+                },
+            }).to("#Page2Content", {
+                onStart: () => {
+                    this.onEnter();
+                },
+                onReverseComplete: () => {
+                    this.onLeave();
+                }
+            });
             (_a = document.getElementById("Page2Content")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
                 const el = e.target;
                 const elTarget = el.closest(`.Page2Content_Column`);
@@ -146,5 +163,6 @@ export default class Page2Script {
             this.timeoutArr.forEach(el => clearTimeout(el));
             this.timeoutArr = [];
         };
+        gsap.registerPlugin(ScrollTrigger);
     }
 }

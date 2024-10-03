@@ -87,11 +87,11 @@ export default class PageInicialScript implements ScreenOption{
         let tlShow = gsap.timeline({
             scrollTrigger: {
                 trigger: "#pageInicialMask",
-                start: "95% 50%",
-                end: "95% 55%",
+                start: "80% 50%",
+                end: "80% 55%",
                 toggleActions: "play none none reverse",
                 // scrub: true,
-                markers: true
+                // markers: true
             },
 
         });
@@ -99,58 +99,17 @@ export default class PageInicialScript implements ScreenOption{
             "--circle-size1": `0%`,
             "--circle-size2": `0%`,
             "--circle-size3": `0%`,
-            duration: 0.2,
-            ease: "sine"
+            duration: 0.4
         });
-        // tlShow.fromTo("#pageInicialMask", {
-        // }, {
-        //     "--circle-size1": `30%`,
-        //     "--circle-size2": `34%`,
-        //     "--circle-size3": `34.4%`,
-        //     duration: 0.2,
-        // });
-
-        // ScrollTrigger.create({
-        //     trigger: "#pageInicialMask",
-        //     start: "top center",
-        //     end: "bottom center",
-        //     scrub: true,
-        //     // markers: 
-        //     // fastScrollEnd: true,
-        //     onEnter: () => {
-        //         // this.ShowScreenRoutine();
-        //         console.log("enter");
-        //     },
-        //     onLeave: () => {
-        //         console.log("leave");
-        //         // this.onLeaving();
-        //     }
-        // })
-
-        // const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
-        // document.addEventListener("mouseleave", (event) => {
-            // console.log("exit")     
-            // gsap.to(mask, {
-            //     "--circle-size1": `0%`,
-            //     "--circle-size2": `0%`,
-            //     "--circle-size3": `0%`,
-            //     duration: 0.1,
-            //     ease: 'sine.in',
-            // })
-        // });
-        // document.addEventListener("mouseenter", (event: MouseEvent) => {
-        //     const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
-        //     const {clientX, clientY} = event;
-        //     const x = ((clientX / window.innerWidth) * 100).toFixed(3);
-        //     const y = ((clientY / window.innerHeight) * 100).toFixed(3);
-        //     console.log(x ,y)
-        //     gsap.to(mask, {
-        //         '--x-position': `${x}%`,
-        //         '--y-position': `${y}%`,
-        //         duration: 0.5,
-        //         ease: 'sine.in',
-        //     })
-        // });
+        tlShow.to("#headerMask", {
+            opacity: 0,
+            duration: 0.4,
+        });
+        tlShow.to("#headerMain", {
+            opacity: 0,
+            duration: 0.4,
+        });
+        
         mask.addEventListener("mousemove", lodash.throttle((event: MouseEvent) => {
             const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
             const {left, top} = ((event.target as HTMLDivElement).closest(".pageInicial_BackgroundMask") as HTMLDivElement).getBoundingClientRect();

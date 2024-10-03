@@ -77,18 +77,24 @@ export default class PageInicialScript {
             let tlShow = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#pageInicialMask",
-                    start: "95% 50%",
-                    end: "95% 55%",
+                    start: "80% 50%",
+                    end: "80% 55%",
                     toggleActions: "play none none reverse",
-                    markers: true
                 },
             });
             tlShow.to("#pageInicialMask", {
                 "--circle-size1": `0%`,
                 "--circle-size2": `0%`,
                 "--circle-size3": `0%`,
-                duration: 0.2,
-                ease: "sine"
+                duration: 0.4
+            });
+            tlShow.to("#headerMask", {
+                opacity: 0,
+                duration: 0.4,
+            });
+            tlShow.to("#headerMain", {
+                opacity: 0,
+                duration: 0.4,
             });
             mask.addEventListener("mousemove", lodash.throttle((event) => {
                 const mask = document.getElementById("pageInicialMask");

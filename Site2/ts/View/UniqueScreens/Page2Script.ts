@@ -1,5 +1,7 @@
 import gsap from 'gsap';
+// import * as lodash from 'lodash';
 import { ScreenOption } from '../../Utils/GeradorUniqueScreen';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface HideColumns_Options{
     hideModel?: "alternate" | "alternate2" | "before" | "after"
@@ -12,8 +14,31 @@ export default class Page2Script implements ScreenOption{
     timeoutArr: NodeJS.Timeout[] = []
     
     screenName: string = "Page2";
+
+    constructor(){
+        gsap.registerPlugin(ScrollTrigger);
+    }
     
     screenSetupEvents = () => {
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: "#Page2Content",
+                start: "top 50%",
+                end: "top 55%",
+                toggleActions: "play none none reverse",
+                // scrub: true,
+                markers: true
+            },
+
+        }).to("#Page2Content", {
+            onStart: () => {
+                this.onEnter();
+            },
+            onReverseComplete: () => {
+                this.onLeave();
+            }
+        })
+
         document.getElementById("Page2Content")?.addEventListener("click", (e) => {
             const el = (e.target as HTMLElement);
             const elTarget = el.closest(`.Page2Content_Column`);
