@@ -130,3 +130,33 @@
   transform: translate(0px, -100px);
   opacity: 0;
 }
+
+
+.underlinedText {
+    position: relative;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    color: #2a71ff;
+    margin: 0px;
+}
+
+.underlinedText:hover {
+    cursor: pointer;
+}
+    .underlinedText::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0%;
+        width: 100%;
+        height: 2px;
+        background-color: #2a71ff;
+        clip-path: inset(0 100%);
+        opacity: 1;
+        transition: opacity 200ms, transform 200ms, clip-path 300ms;
+    }
+    .underlinedText:hover::after,
+    .underlinedText:focus::after {
+        opacity: 1;
+        clip-path: inset(0 0%);
+    }
