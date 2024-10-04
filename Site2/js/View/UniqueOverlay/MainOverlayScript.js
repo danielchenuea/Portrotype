@@ -19,13 +19,22 @@ export default class MainOverlayScript {
             const uniqueContainer = document.getElementById("UniqueScreenContainer");
             for (let i = 0; i < uniqueContainer.children.length; i++) {
                 const element = uniqueContainer.children[i];
+                if (element.hasAttribute("spacer"))
+                    continue;
                 const htmlFile = element.id;
                 const buttonAnchor = document.createElement("div");
                 buttonAnchor.classList.add("MainOverlay_AnchorLink");
-                buttonAnchor.setAttribute("page-id", `${i}`);
+                buttonAnchor.setAttribute("page-id", element.id);
                 buttonAnchor.innerHTML = `
                 <div class="MainOverlay_AnchorIcon"></div>
                 <div class="MainOverlay_AnchorText">${htmlFile}</div>`;
+                buttonAnchor.addEventListener("click", (e) => {
+                    const target = e.target;
+                    this.CloseOverlay().then(() => {
+                        var _a;
+                        (_a = document.getElementById(target.getAttribute("page-id"))) === null || _a === void 0 ? void 0 : _a.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                    });
+                });
                 anchorContainer.appendChild(buttonAnchor);
             }
             const mask = document.getElementById("MainOverlay_Mask");
@@ -35,16 +44,6 @@ export default class MainOverlayScript {
                 this.ClickOverlay();
             });
             this.GenerateMeteors();
-            document.querySelectorAll(".MainOverlay_AnchorLink").forEach(el => {
-                el.addEventListener("click", (e) => {
-                    const target = el;
-                    this.CloseOverlay().then(() => {
-                        var _a;
-                        if (this.PageChangerHandler)
-                            this.PageChangerHandler(parseInt((_a = target.getAttribute("page-id")) !== null && _a !== void 0 ? _a : "0"));
-                    });
-                });
-            });
         };
         this.onEnter = () => {
         };

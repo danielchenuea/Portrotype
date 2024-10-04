@@ -20,33 +20,13 @@ export default class Page1Script implements ScreenOption{
                 start: "top 50%",
                 end: "top 55%",
                 toggleActions: "play none none reverse",
-                // scrub: true,
-                markers: true,
-                onEnter: () => {
-                    tl.timeScale(1.0);
-                    console.log('enter')
-                  },
-                  
-                  onEnterBack: () => {
-                    tl.timeScale(5.0);
-                    console.log('enter back')
-                  },
+                markers: true
             },
-
-        }).to("#Page1_Scope", {
-            transform: "rotateZ(30deg)"
-        // }).fromTo("#Page1_RightText", {
-        //     opacity: 0,
-        //     x: -100,
-        // }, {
-        //     opacity: 1,
-        //     x: 0
         })
-        .fromTo("#Page1_HeaderText_1", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.2 })
-        .fromTo(".Page1_TextBox", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.2, stagger: 0.2 })
-            
-        // });
-
+        .to("#Page1_Scope", { transform: "rotateZ(40deg)", duration: 0.4, ease: "sine.in" })
+        .to("#Page1_PhotoBackground", { transform: "rotateZ(10deg)", duration: 0.4, ease: "bounce", yoyo: true })
+        .to("#Page1_PhotoFrame", { transform: "rotateZ(6deg)", duration: 0.4, ease: "bounce", yoyo: true }, "<")
+        .fromTo(".Page1_TextBox", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, stagger: 0.1 }, "<=0.5")
     }
     onEnter = () => {
         this.ClearTimeout();

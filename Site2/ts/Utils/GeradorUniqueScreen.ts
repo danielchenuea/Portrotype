@@ -271,6 +271,29 @@ export default class GeradorUniqueScreen{
         };
         this.ChangeToPage(newPage)
     }
+    ChangeToPageById(elementId: string){
+        document.getElementById(elementId)?.scrollIntoView();
+        
+        // this.lastPage = this.currentPage;
+        // this.currentPage = newPage;
+        
+        // this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeaving")
+        // this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEntering")
+
+        // console.log(newPage)
+        // window.scrollTo({
+        //     top: newPage * window.innerHeight,
+        //     left: 0,
+        //     behavior: 'smooth'
+        // })
+
+        // setTimeout(() => {
+        //     this.StopScrolling();
+        //     this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeave")
+        //     this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEnter")
+    
+        // }, this.pageTransitionDelay)
+    }
     ChangeToPage(newPage: number){
         if (newPage < 0 || newPage >= this.numPages) {
             this.StopScrolling();
@@ -283,9 +306,15 @@ export default class GeradorUniqueScreen{
         this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeaving")
         this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEntering")
 
-        const div = document.getElementById(`UniqueScreenContainer`) as HTMLElement;
-        div!.style.transition = `${this.pageTransitionDelay}ms all ease-in-out`;
-        div!.style.transform = `translate(0px, -${newPage * window.innerHeight}px)`;
+        // const div = document.getElementById(`UniqueScreenContainer`) as HTMLElement;
+        // div!.style.transition = `${this.pageTransitionDelay}ms all ease-in-out`;
+        // div!.style.transform = `translate(0px, -${newPage * window.innerHeight}px)`;
+        console.log(newPage)
+        window.scrollTo({
+            top: newPage * window.innerHeight,
+            left: 0,
+            behavior: 'smooth'
+        })
 
         setTimeout(() => {
             this.StopScrolling();

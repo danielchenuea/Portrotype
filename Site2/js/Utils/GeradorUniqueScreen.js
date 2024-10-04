@@ -192,6 +192,10 @@ export default class GeradorUniqueScreen {
         ;
         this.ChangeToPage(newPage);
     }
+    ChangeToPageById(elementId) {
+        var _a;
+        (_a = document.getElementById(elementId)) === null || _a === void 0 ? void 0 : _a.scrollIntoView();
+    }
     ChangeToPage(newPage) {
         if (newPage < 0 || newPage >= this.numPages) {
             this.StopScrolling();
@@ -202,9 +206,12 @@ export default class GeradorUniqueScreen {
         this.currentPage = newPage;
         this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeaving");
         this.ExecuteScreenCommand(this.screenNames[this.currentPage], "onEntering");
-        const div = document.getElementById(`UniqueScreenContainer`);
-        div.style.transition = `${this.pageTransitionDelay}ms all ease-in-out`;
-        div.style.transform = `translate(0px, -${newPage * window.innerHeight}px)`;
+        console.log(newPage);
+        window.scrollTo({
+            top: newPage * window.innerHeight,
+            left: 0,
+            behavior: 'smooth'
+        });
         setTimeout(() => {
             this.StopScrolling();
             this.ExecuteScreenCommand(this.screenNames[this.lastPage], "onLeave");

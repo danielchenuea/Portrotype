@@ -12,15 +12,12 @@ export default class Page2Script {
                     start: "top 50%",
                     end: "top 55%",
                     toggleActions: "play none none reverse",
-                    markers: true
+                    once: true,
+                    markers: true,
+                    onEnter: () => {
+                        this.onEnter();
+                    }
                 },
-            }).to("#Page2Content", {
-                onStart: () => {
-                    this.onEnter();
-                },
-                onReverseComplete: () => {
-                    this.onLeave();
-                }
             });
             (_a = document.getElementById("Page2Content")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
                 const el = e.target;
@@ -44,8 +41,8 @@ export default class Page2Script {
         };
         this.onLeave = () => {
             this.ClearTimeout();
-            this.ResetInfoMode(false);
-            this.HideColumns({ hideModel: "alternate", instant: true });
+            this.ResetInfoMode(true);
+            this.HideColumns({ hideModel: "alternate", instant: false });
         };
         this.onEntering = () => { };
         this.onLeaving = () => {
@@ -78,7 +75,7 @@ export default class Page2Script {
                 const dataIndex = parseInt((_a = column.getAttribute("data-index")) !== null && _a !== void 0 ? _a : "0");
                 let tl = gsap.timeline();
                 tl.to(textElement, {
-                    'height': "0",
+                    height: "0",
                     duration: 0.15,
                     ease: 'sine.inOut',
                 })

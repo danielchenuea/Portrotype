@@ -23,16 +23,28 @@ export default class MainOverlayScript implements OverlayOption{
         const uniqueContainer = document.getElementById("UniqueScreenContainer");
         for (let i = 0; i < uniqueContainer!.children.length; i++) {
             const element = uniqueContainer!.children[i];
+
+            if (element.hasAttribute("spacer")) continue;
+
             // element.classList.add("UniqueScreenPage");
             const htmlFile = element.id;
             // let file = 'views/UniqueScreens/' + htmlFile + '.html'
             
             const buttonAnchor = document.createElement("div");
             buttonAnchor.classList.add("MainOverlay_AnchorLink");
-            buttonAnchor.setAttribute("page-id", `${i}`);
+            // buttonAnchor.setAttribute("page-id", `${i}`);
+            buttonAnchor.setAttribute("page-id", element.id);
             buttonAnchor.innerHTML = `
                 <div class="MainOverlay_AnchorIcon"></div>
                 <div class="MainOverlay_AnchorText">${htmlFile}</div>`;
+            buttonAnchor.addEventListener("click", (e) => {
+                const target = e.target as HTMLDivElement;
+
+                this.CloseOverlay().then(() => {
+                    // if (this.PageChangerHandler) this.PageChangerHandler(parseInt(target.getAttribute("page-id") ?? "0"));
+                    document.getElementById(target.getAttribute("page-id")!)?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                })
+            })
             anchorContainer!.appendChild(buttonAnchor);
         }
 
@@ -44,15 +56,15 @@ export default class MainOverlayScript implements OverlayOption{
         });
         this.GenerateMeteors();
 
-        document.querySelectorAll(".MainOverlay_AnchorLink").forEach(el => {
-            el.addEventListener("click", (e) => {
-                const target = el as HTMLDivElement;
+        // document.querySelectorAll(".MainOverlay_AnchorLink").forEach(el => {
+        //     el.addEventListener("click", (e) => {
+        //         const target = el as HTMLDivElement;
 
-                this.CloseOverlay().then(() => {
-                    if (this.PageChangerHandler) this.PageChangerHandler(parseInt(target.getAttribute("page-id") ?? "0"));
-                })
-            })
-        })
+        //         this.CloseOverlay().then(() => {
+        //             if (this.PageChangerHandler) this.PageChangerHandler(parseInt(target.getAttribute("page-id") ?? "0"));
+        //         })
+        //     })
+        // })
     }
 
     onEnter = () => {
@@ -70,10 +82,8 @@ export default class MainOverlayScript implements OverlayOption{
 
     ClickOverlay = async () => {
         if (this.isOpen){ // Close
-            // this.isOpen = !this.isOpen;
             this.CloseOverlay();
         } else { // Open
-            // this.isOpen = !this.isOpen;
             this.OpenOverlay();
         }
     }

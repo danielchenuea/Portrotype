@@ -35,7 +35,7 @@
 }
 
 .MainOverlay_Background{
-    position: absolute;
+    position: fixed;
     z-index: 8;
     right: 0px;
     width: 100%;

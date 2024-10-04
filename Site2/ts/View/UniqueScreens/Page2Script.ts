@@ -27,17 +27,13 @@ export default class Page2Script implements ScreenOption{
                 end: "top 55%",
                 toggleActions: "play none none reverse",
                 // scrub: true,
-                markers: true
+                once: true,
+                markers: true,
+                onEnter: () => {
+                    this.onEnter();
+                }
             },
-
-        }).to("#Page2Content", {
-            onStart: () => {
-                this.onEnter();
-            },
-            onReverseComplete: () => {
-                this.onLeave();
-            }
-        })
+        });
 
         document.getElementById("Page2Content")?.addEventListener("click", (e) => {
             const el = (e.target as HTMLElement);
@@ -70,8 +66,8 @@ export default class Page2Script implements ScreenOption{
     }
     onLeave = () => {
         this.ClearTimeout();
-        this.ResetInfoMode(false);
-        this.HideColumns({hideModel: "alternate", instant: true});
+        this.ResetInfoMode(true);
+        this.HideColumns({hideModel: "alternate", instant: false});
     }
 
     onEntering = () => {}
@@ -115,7 +111,7 @@ export default class Page2Script implements ScreenOption{
 
             let tl = gsap.timeline();
             tl.to(textElement, {
-                'height': "0",
+                height: "0",
                 duration: 0.15,
                 ease: 'sine.inOut',
             })

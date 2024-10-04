@@ -70,10 +70,12 @@
 }
 #headerMainChange{
     width: 45%;
+    user-select: none;
     direction: rtl;
 }
 #headerMainTitle{
     width: 55%;
+    user-select: none;
 }
 .pageInicial_divTerra{
     display: flex;
@@ -126,9 +128,11 @@
 }
 #headerMaskChange{
     width: 45%;
+    user-select: none;
     direction: rtl;
 }
 #headerMaskTitle{
+    user-select: none;
     width: 55%;
 }
 
