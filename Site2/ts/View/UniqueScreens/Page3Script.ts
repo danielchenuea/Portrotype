@@ -2,6 +2,7 @@ import gsap from 'gsap';
 // import * as lodash from 'lodash';
 import { ScreenOption } from '../../Utils/GeradorUniqueScreen';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GeradorRoletaImagens from '../../Utils/GeradorRoletaImagens';
 
 export default class Page3Script implements ScreenOption{
 
@@ -12,15 +13,13 @@ export default class Page3Script implements ScreenOption{
 
     screenName: string = "Page3";
     screenSetupEvents = () => {
-        document.querySelectorAll(".Page3Content_PolaroidPhoto").forEach(el => {
-            const photo = (el.querySelector(".Page3Content_PolaroidBackground") as HTMLElement);
-            const background = (el.querySelector(".Page3Content_PolaroidImageWrapper") as HTMLElement);
-            const randomRotation = (Math.random() * 1.5) + 0.4;
-            const randomPosition = Math.floor(Math.random() * 9) >= 5 ;
 
-            photo.style.transform = `rotate(${randomPosition ? "-" : ""}${randomRotation}deg)`;
-            background.style.transform = `rotate(${randomPosition ? "" : "-"}${randomRotation}deg)`;
-        })
+        new GeradorRoletaImagens({
+            idDiv: "Page3Content_PolaroidWrapper",
+            idController: "Page3Content_BottomBarWrapper",
+            columns: 2,
+            rows: 2,
+        }).Generate();
 
         const tl = gsap.timeline({
             scrollTrigger: {

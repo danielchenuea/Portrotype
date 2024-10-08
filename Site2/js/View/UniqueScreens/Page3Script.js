@@ -1,17 +1,16 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GeradorRoletaImagens from '../../Utils/GeradorRoletaImagens';
 export default class Page3Script {
     constructor() {
         this.screenName = "Page3";
         this.screenSetupEvents = () => {
-            document.querySelectorAll(".Page3Content_PolaroidPhoto").forEach(el => {
-                const photo = el.querySelector(".Page3Content_PolaroidBackground");
-                const background = el.querySelector(".Page3Content_PolaroidImageWrapper");
-                const randomRotation = (Math.random() * 1.5) + 0.4;
-                const randomPosition = Math.floor(Math.random() * 9) >= 5;
-                photo.style.transform = `rotate(${randomPosition ? "-" : ""}${randomRotation}deg)`;
-                background.style.transform = `rotate(${randomPosition ? "" : "-"}${randomRotation}deg)`;
-            });
+            new GeradorRoletaImagens({
+                idDiv: "Page3Content_PolaroidWrapper",
+                idController: "Page3Content_BottomBarWrapper",
+                columns: 2,
+                rows: 2,
+            }).Generate();
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#Page3Content",
