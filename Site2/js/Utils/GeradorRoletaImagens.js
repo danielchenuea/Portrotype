@@ -11,6 +11,10 @@ import gsap from 'gsap';
 export default class GeradorRoletaImagens {
     constructor(options) {
         this.paginaAtual = 0;
+        this.changeTimer = 0;
+        this.timeToChange = 5000;
+        this.changePageTimer = null;
+        this.roletaAtual = null;
         this.imagensAtual = [];
         this.imagensArray = [
             {
@@ -69,7 +73,8 @@ export default class GeradorRoletaImagens {
                             <div class="Page3Content_PolaroidBackground"></div>
                             <div class="Page3Content_PolaroidImageWrapper">
                                 <img class="Page3Content_PolaroidImage" id="Page3_PolaroidImage${index}" src="${this.imagensArray[index].src}"></img>
-                                <div class="Page3Content_PolaroidOverlay"></div>
+                                <div class="Page3Content_PolaroidImageFiller" id="Page3_PolaroidImageFiller${index}" style="display: none"></div>
+                                <div class="Page3Content_PolaroidOverlay" id="Page3_PolaroidOverlay${index}"></div>
                             </div>
                         </div>
                         <div class="Page3Content_PolaroidDescription">
@@ -103,7 +108,7 @@ export default class GeradorRoletaImagens {
             for (let i = 0; i < pageNum; i++) {
                 controlDiv.insertAdjacentHTML("beforeend", `
                     <div class="roletaPageIndicator ${0 == i ? " active" : ""}" id='roleta${i}' data-page='${i}'>
-                        <div class="roletaTimerIndicator${i}">
+                        <div class="roletaTimerIndicator">
                         </div>
                     </div>
                 `);
@@ -118,9 +123,11 @@ export default class GeradorRoletaImagens {
         let classThis = this;
         (_a = document.getElementById(this.idController)) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function (e) {
             const el = e.target;
-            if (el.closest(".roletaPageIndicator")) {
-                const newPageId = parseInt(el.getAttribute("data-page"));
-                classThis.ManipularPagina(newPageId);
+            const pageEl = el.closest(".roletaPageIndicator");
+            if (pageEl) {
+                const newPageId = parseInt(pageEl.getAttribute("data-page"));
+                const direction = newPageId > classThis.paginaAtual ? "left" : "right";
+                classThis.ManipularPagina(newPageId, direction);
                 classThis.ChangeButtonCss(newPageId);
             }
         });
@@ -178,32 +185,43 @@ export default class GeradorRoletaImagens {
         if (this.imagensArray === undefined)
             return;
         let novaPagina = this.paginaAtual + (1);
-        if (novaPagina >= this.imagensArray.length)
+        const pageNum = Math.ceil(this.imagensArray.length / (this.columns * this.rows));
+        if (novaPagina >= pageNum)
             novaPagina = 0;
-        this.ManipularPagina(novaPagina);
+        this.ManipularPagina(novaPagina, "right");
     }
     VoltarPagina() {
         if (this.imagensArray === undefined)
             return;
         let novaPagina = this.paginaAtual + (-1);
+        const pageNum = Math.ceil(this.imagensArray.length / (this.columns * this.rows));
         if (novaPagina < 0)
-            novaPagina = this.imagensArray.length - 1;
-        this.ManipularPagina(novaPagina);
+            novaPagina = pageNum - 1;
+        this.ManipularPagina(novaPagina, "left");
     }
-    ManipularPagina(novaPagina) {
+    ResetPaginaInicial() {
+        this.paginaAtual = 0;
+        const qtPorPagina = this.rows * this.columns;
+        this.imagensAtual = this.imagensArray.slice(0, qtPorPagina);
+        this.ChangeCurrentImages(this.imagensAtual);
+    }
+    ManipularPagina(novaPagina, direction) {
         if (this.imagensArray === undefined)
             return;
         const paginaVelha = this.paginaAtual;
         this.paginaAtual = novaPagina;
         const qtPorPagina = this.rows * this.columns;
+        this.changeTimer = 0;
+        this.roletaAtual = document.getElementById("roleta" + novaPagina);
+        this.ResetTimerCss();
         this.imagensAtual = this.imagensArray.slice(qtPorPagina * novaPagina, qtPorPagina * (novaPagina + 1));
-        if (paginaVelha < novaPagina) {
+        if (direction == "right") {
             this.FadeOutImagens("left").then(_ => {
                 this.ChangeCurrentImages(this.imagensAtual);
                 this.FadeInImagens("right");
             });
         }
-        else if (paginaVelha > novaPagina) {
+        else if (direction == "left") {
             this.FadeOutImagens("right").then(_ => {
                 this.ChangeCurrentImages(this.imagensAtual);
                 this.FadeInImagens("left");
@@ -212,10 +230,11 @@ export default class GeradorRoletaImagens {
         this.ChangeButtonCss(novaPagina);
     }
     ChangeCurrentImages(arrayImages) {
-        var _a, _b;
+        var _a, _b, _c, _d;
         for (let i = 0; i < this.rows * this.columns; i++) {
             if (arrayImages[i] === undefined) {
                 (_a = document.getElementById("Page3_PolaroidImage" + i)) === null || _a === void 0 ? void 0 : _a.setAttribute("src", "");
+                (_b = document.getElementById("Page3_PolaroidOverlay" + i)) === null || _b === void 0 ? void 0 : _b.style.setProperty("display", "none");
                 const polaroidTitle = document.getElementById("Page3_PolaroidDescriptionTitle" + i);
                 if (polaroidTitle)
                     polaroidTitle.innerText = "";
@@ -224,7 +243,8 @@ export default class GeradorRoletaImagens {
                     polaroidDesc.innerText = "";
             }
             else {
-                (_b = document.getElementById("Page3_PolaroidImage" + i)) === null || _b === void 0 ? void 0 : _b.setAttribute("src", arrayImages[i].src);
+                (_c = document.getElementById("Page3_PolaroidOverlay" + i)) === null || _c === void 0 ? void 0 : _c.style.removeProperty("display");
+                (_d = document.getElementById("Page3_PolaroidImage" + i)) === null || _d === void 0 ? void 0 : _d.setAttribute("src", arrayImages[i].src);
                 const polaroidTitle = document.getElementById("Page3_PolaroidDescriptionTitle" + i);
                 if (polaroidTitle)
                     polaroidTitle.innerText = arrayImages[i].nome;
@@ -233,5 +253,39 @@ export default class GeradorRoletaImagens {
                     polaroidDesc.innerText = arrayImages[i].descricao;
             }
         }
+    }
+    StartTimer() {
+        if (this.roletaAtual == null)
+            this.roletaAtual = document.getElementById("roleta" + this.paginaAtual);
+        this.changePageTimer = setInterval(() => {
+            var _a;
+            this.changeTimer += 150;
+            let roletaLoading = (_a = this.roletaAtual) === null || _a === void 0 ? void 0 : _a.firstElementChild;
+            roletaLoading.style.width = `${(this.changeTimer / this.timeToChange) * 100}%`;
+            if (this.changeTimer > this.timeToChange + 150) {
+                this.changeTimer = 0;
+                this.ProximaPagina();
+            }
+        }, 150);
+    }
+    StopTimer() {
+        this.changeTimer = 0;
+        if (this.changePageTimer)
+            clearInterval(this.changePageTimer);
+        this.ResetPaginaInicial();
+        this.ResetTimerCss();
+    }
+    ResetTimerCss() {
+        document.querySelectorAll(".roletaPageIndicator").forEach(el => {
+            const loader = el;
+            const newPageId = parseInt(el.getAttribute("data-page"));
+            const roletaLoading = loader === null || loader === void 0 ? void 0 : loader.firstElementChild;
+            if (newPageId < this.paginaAtual) {
+                roletaLoading.style.width = "100%";
+            }
+            else {
+                roletaLoading.style.width = "0%";
+            }
+        });
     }
 }

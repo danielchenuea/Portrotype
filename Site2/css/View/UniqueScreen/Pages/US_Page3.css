@@ -101,7 +101,6 @@
   align-items: center;
   text-align: center;
   overflow: hidden;
-  box-shadow: 0px 0px 0px 4000px rgba(27, 61, 88, 0.5) inset;
 }
 .Page3Content_PolaroidImageWrapper:hover {
   cursor: pointer;
@@ -119,6 +118,14 @@
   vertical-align: middle;
   overflow: hidden;
   outline: none;
+}
+.Page3Content_PolaroidImageFiller{
+  position: absolute;
+  margin: auto;
+  min-height: 100%;
+  min-width: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
 }
 .Page3Content_PolaroidOverlay {
   position: absolute;
@@ -249,10 +256,10 @@
 .roletaTimerIndicator{
   position: relative;
   left: 0px;
-  width: 50%;
+  width: 0%;
   height: 100%;
   background-color: #aaaaaa;
-  transition: width 0.2s ease-in-out;
+  transition: width 0.15s ease-in-out;
 }
 
 .roletaSideButton{

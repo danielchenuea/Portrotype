@@ -11,10 +11,12 @@ export default class Page3Script implements ScreenOption{
         gsap.registerPlugin(ScrollTrigger);
     }
 
+    roletaImagens: GeradorRoletaImagens | null = null;
+
     screenName: string = "Page3";
     screenSetupEvents = () => {
 
-        new GeradorRoletaImagens({
+        this.roletaImagens = new GeradorRoletaImagens({
             idDiv: "Page3Content_PolaroidWrapper",
             idController: "Page3Content_BottomBarWrapper",
             columns: 2,
@@ -29,6 +31,16 @@ export default class Page3Script implements ScreenOption{
                 toggleActions: "play none none reverse",
                 // scrub: 0.5,
                 markers: true,
+                onEnter: () => {
+                    this.roletaImagens?.StartTimer();
+                    console.log("3 Enter")
+                },
+                onEnterBack: () => {
+                    console.log("3 Leave")
+                },
+                onLeave: () => {
+                    this.roletaImagens?.StopTimer();
+                }
             },
         })
         .fromTo(".Page3Content_PolaroidPhoto", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
@@ -38,10 +50,8 @@ export default class Page3Script implements ScreenOption{
     }
 
     onEnter = () => {
-        console.log("3 Enter")
     }
     onLeave = () => {
-        console.log("3 Leave")
     }
 
     onEntering = () => {}
