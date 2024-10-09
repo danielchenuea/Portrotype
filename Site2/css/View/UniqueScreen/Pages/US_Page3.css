@@ -232,6 +232,7 @@
   justify-content: center;
 }
 .roletaPageIndicator{
+  position: relative;
   margin: 0px 5px;
   width: 20px;
   height: 20px;
@@ -239,9 +240,19 @@
   border-radius: 3px;
   transition: 0.2s all ease-in-out;
   cursor: pointer;
+  overflow: hidden;
 }
 .roletaPageIndicator.active{
   width: 100px;
+}
+
+.roletaTimerIndicator{
+  position: relative;
+  left: 0px;
+  width: 50%;
+  height: 100%;
+  background-color: #aaaaaa;
+  transition: width 0.2s ease-in-out;
 }
 
 .roletaSideButton{

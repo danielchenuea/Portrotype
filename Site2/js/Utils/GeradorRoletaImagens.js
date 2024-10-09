@@ -1,7 +1,17 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import gsap from 'gsap';
 export default class GeradorRoletaImagens {
     constructor(options) {
         this.paginaAtual = 0;
+        this.imagensAtual = [];
         this.imagensArray = [
             {
                 nome: "Imagem 1",
@@ -55,7 +65,7 @@ export default class GeradorRoletaImagens {
                     const index = (i * this.rows) + j;
                     mainPolaroidDiv.insertAdjacentHTML("beforeend", `
                     <div class="Page3Content_PolaroidContent">
-                        <div class="Page3Content_PolaroidPhoto">
+                        <div class="Page3Content_PolaroidPhoto" id="Page3_PolaroidPhoto${index}">
                             <div class="Page3Content_PolaroidBackground"></div>
                             <div class="Page3Content_PolaroidImageWrapper">
                                 <img class="Page3Content_PolaroidImage" id="Page3_PolaroidImage${index}" src="${this.imagensArray[index].src}"></img>
@@ -64,10 +74,10 @@ export default class GeradorRoletaImagens {
                         </div>
                         <div class="Page3Content_PolaroidDescription">
                             <div class="Page3Content_PolaroidDescriptionOverlay">
-                                <div class="Page3Content_PolaroidDescriptionTitle">
+                                <div class="Page3Content_PolaroidDescriptionTitle" id="Page3_PolaroidDescriptionTitle${index}">
                                     ${this.imagensArray[index].nome}
                                 </div> 
-                                <div class="Page3Content_PolaroidDescriptionText">
+                                <div class="Page3Content_PolaroidDescriptionText" id="Page3_PolaroidDescriptionText${index}">
                                     ${this.imagensArray[index].descricao}
                                 </div> 
                             </div> 
@@ -92,7 +102,10 @@ export default class GeradorRoletaImagens {
             const pageNum = Math.ceil(this.imagensArray.length / (this.columns * this.rows));
             for (let i = 0; i < pageNum; i++) {
                 controlDiv.insertAdjacentHTML("beforeend", `
-                    <div class="roletaPageIndicator ${0 == i ? " active" : ""}" id='roleta${i}' data-page='${i}'></div>
+                    <div class="roletaPageIndicator ${0 == i ? " active" : ""}" id='roleta${i}' data-page='${i}'>
+                        <div class="roletaTimerIndicator${i}">
+                        </div>
+                    </div>
                 `);
             }
             idControl.appendChild(controlDiv);
@@ -119,36 +132,40 @@ export default class GeradorRoletaImagens {
         });
     }
     FadeOutImagens(direction) {
-        switch (direction) {
-            case "left":
-                gsap.timeline()
-                    .fromTo(".Page3Content_PolaroidPhoto[active]", { x: 0, opacity: 1 }, { x: -50, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionTitle[active]", { x: 0, opacity: 1 }, { x: -5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionText[active]", { x: 0, opacity: 1 }, { x: -5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<");
-                break;
-            default:
-                gsap.timeline()
-                    .fromTo(".Page3Content_PolaroidPhoto[active]", { x: 0, opacity: 1 }, { x: 50, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionTitle[active]", { x: 0, opacity: 1 }, { x: 5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionText[active]", { x: 0, opacity: 1 }, { x: 5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<");
-                break;
-        }
+        return __awaiter(this, void 0, void 0, function* () {
+            switch (direction) {
+                case "left":
+                    yield gsap.timeline()
+                        .fromTo(".Page3Content_PolaroidPhoto", { x: 0, opacity: 1 }, { x: -50, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionTitle", { x: 0, opacity: 1 }, { x: -5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionText", { x: 0, opacity: 1 }, { x: -5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<");
+                    break;
+                default:
+                    yield gsap.timeline()
+                        .fromTo(".Page3Content_PolaroidPhoto", { x: 0, opacity: 1 }, { x: 50, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionTitle", { x: 0, opacity: 1 }, { x: 5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionText", { x: 0, opacity: 1 }, { x: 5, opacity: 0, duration: 0.3, stagger: 0.05 }, "<");
+                    break;
+            }
+        });
     }
     FadeInImagens(direction) {
-        switch (direction) {
-            case "left":
-                gsap.timeline()
-                    .fromTo(".Page3Content_PolaroidPhoto[active]", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionTitle[active]", { x: -5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionText[active]", { x: -5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<");
-                break;
-            default:
-                gsap.timeline()
-                    .fromTo(".Page3Content_PolaroidPhoto[active]", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionTitle[active]", { x: 5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
-                    .fromTo(".Page3Content_PolaroidDescriptionText[active]", { x: 5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<");
-                break;
-        }
+        return __awaiter(this, void 0, void 0, function* () {
+            switch (direction) {
+                case "left":
+                    yield gsap.timeline()
+                        .fromTo(".Page3Content_PolaroidPhoto", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionTitle", { x: -5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionText", { x: -5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<");
+                    break;
+                default:
+                    yield gsap.timeline()
+                        .fromTo(".Page3Content_PolaroidPhoto", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionTitle", { x: 5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<")
+                        .fromTo(".Page3Content_PolaroidDescriptionText", { x: 5, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, "<");
+                    break;
+            }
+        });
     }
     ChangeButtonCss(elementPage) {
         const el = document.getElementById(`roleta${elementPage}`);
@@ -176,7 +193,45 @@ export default class GeradorRoletaImagens {
     ManipularPagina(novaPagina) {
         if (this.imagensArray === undefined)
             return;
+        const paginaVelha = this.paginaAtual;
         this.paginaAtual = novaPagina;
+        const qtPorPagina = this.rows * this.columns;
+        this.imagensAtual = this.imagensArray.slice(qtPorPagina * novaPagina, qtPorPagina * (novaPagina + 1));
+        if (paginaVelha < novaPagina) {
+            this.FadeOutImagens("left").then(_ => {
+                this.ChangeCurrentImages(this.imagensAtual);
+                this.FadeInImagens("right");
+            });
+        }
+        else if (paginaVelha > novaPagina) {
+            this.FadeOutImagens("right").then(_ => {
+                this.ChangeCurrentImages(this.imagensAtual);
+                this.FadeInImagens("left");
+            });
+        }
         this.ChangeButtonCss(novaPagina);
+    }
+    ChangeCurrentImages(arrayImages) {
+        var _a, _b;
+        for (let i = 0; i < this.rows * this.columns; i++) {
+            if (arrayImages[i] === undefined) {
+                (_a = document.getElementById("Page3_PolaroidImage" + i)) === null || _a === void 0 ? void 0 : _a.setAttribute("src", "");
+                const polaroidTitle = document.getElementById("Page3_PolaroidDescriptionTitle" + i);
+                if (polaroidTitle)
+                    polaroidTitle.innerText = "";
+                const polaroidDesc = document.getElementById("Page3_PolaroidDescriptionText" + i);
+                if (polaroidDesc)
+                    polaroidDesc.innerText = "";
+            }
+            else {
+                (_b = document.getElementById("Page3_PolaroidImage" + i)) === null || _b === void 0 ? void 0 : _b.setAttribute("src", arrayImages[i].src);
+                const polaroidTitle = document.getElementById("Page3_PolaroidDescriptionTitle" + i);
+                if (polaroidTitle)
+                    polaroidTitle.innerText = arrayImages[i].nome;
+                const polaroidDesc = document.getElementById("Page3_PolaroidDescriptionText" + i);
+                if (polaroidDesc)
+                    polaroidDesc.innerText = arrayImages[i].descricao;
+            }
+        }
     }
 }
