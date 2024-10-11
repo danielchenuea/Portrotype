@@ -96,6 +96,8 @@ export default class PageInicialScript {
                 opacity: 0,
                 duration: 0.4,
             });
+            const xTo = gsap.quickTo('.pageInicial_flyingRocket', "x", { duration: 0.6, ease: "power3" });
+            const yTo = gsap.quickTo('.pageInicial_flyingRocket', "y", { duration: 0.6, ease: "power3" });
             mask.addEventListener("mousemove", lodash.throttle((event) => {
                 const mask = document.getElementById("pageInicialMask");
                 const { left, top } = event.target.closest(".pageInicial_BackgroundMask").getBoundingClientRect();
@@ -107,6 +109,8 @@ export default class PageInicialScript {
                     duration: 0.3,
                     ease: 'sine.out',
                 });
+                xTo(event.clientX - left - 50);
+                yTo(event.clientY - top - 50);
             }, 50));
             this.InitiatePage();
         };

@@ -1,3 +1,4 @@
+import GeradorSocialContent from "../../Utils/GeradorSocial";
 import { ScreenOption } from "../../Utils/GeradorUniqueScreen"
 
 export default class Page3Script implements ScreenOption{
@@ -5,10 +6,15 @@ export default class Page3Script implements ScreenOption{
     constructor(){
         // this.SetupEvents();
     }
-    screenName: string = "Page3"
+
+    socialContent: GeradorSocialContent | null = null;
+
+    screenName: string = "PageSocial"
 
     screenSetupEvents = () => {
-
+        this.socialContent = new GeradorSocialContent({
+            idDiv: "PageSocial_Wrapper"
+        }).Generate();
     }
 
 

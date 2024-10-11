@@ -145,18 +145,9 @@ export default class GeradorRoletaImagens{
         return this;
     }
     
-    /**
-     * Função que Configura os JQuery a serem utilizados pela classe.
-     * - Clicar no Fora do Modal faz o Modal se fechar.
-     * - Clicar no Modal impede que ele se feche.
-     */
     private EventsOnLoad() {
         let classThis = this;
-        // window.addEventListener("resize", function() {
-        //     classThis.SetScreenWidth();
-        //     const div = document.getElementById(`imageSubWrapper`) as HTMLElement;
-        //     div!.style.transform = `translate(-${classThis.paginaAtual * classThis.GetScreenWidth()}px, 0px)`;
-        // });
+
         document.getElementById(this.idController)?.addEventListener("click", function (e){
             const el = (e.target as HTMLElement);
             const pageEl = el.closest(".roletaPageIndicator");
@@ -165,7 +156,6 @@ export default class GeradorRoletaImagens{
                 const direction = newPageId > classThis.paginaAtual ? "left" : "right";
                 classThis.ManipularPagina(newPageId, direction)
                 classThis.ChangeButtonCss(newPageId)
-
             }
         });
 
@@ -245,19 +235,24 @@ export default class GeradorRoletaImagens{
         const qtPorPagina = this.rows * this.columns;
         this.imagensAtual = this.imagensArray.slice(0, qtPorPagina);
         this.ChangeCurrentImages(this.imagensAtual);
+        this.ChangeButtonCss(0);
     }
 
     ManipularPagina(novaPagina: number, direction: "left" | "right") {
         if (this.imagensArray === undefined) return;
 
+        this.changeTimer = 0;
+        // if (this.paginaAtual == novaPagina) return;
+        
+        if (this.paginaAtual == novaPagina) return;
+        
         const paginaVelha = this.paginaAtual;
         this.paginaAtual = novaPagina;
-        const qtPorPagina = this.rows * this.columns;
-
-        this.changeTimer = 0;
+        
         this.roletaAtual = document.getElementById("roleta" + novaPagina) as HTMLDivElement;
-        this.ResetTimerCss();
-
+        this.ResetTimerCss(novaPagina);
+        
+        const qtPorPagina = this.rows * this.columns;
         this.imagensAtual = this.imagensArray.slice(qtPorPagina * novaPagina, qtPorPagina * (novaPagina + 1));
 
         if (direction == "right") { // direita 
@@ -272,8 +267,6 @@ export default class GeradorRoletaImagens{
             });
         }
 
-        // const div = document.getElementById(`imageSubWrapper`) as HTMLElement;
-        // div!.style.transform = `translate(-${novaPagina * this.GetScreenWidth()}px, 0px)`;
         this.ChangeButtonCss(novaPagina);
     }
 
@@ -283,7 +276,7 @@ export default class GeradorRoletaImagens{
                 document.getElementById("Page3_PolaroidImage" + i)?.setAttribute("src", "");
                 document.getElementById("Page3_PolaroidOverlay" + i)?.style.setProperty("display", "none");
                 const polaroidTitle = document.getElementById("Page3_PolaroidDescriptionTitle" + i);
-                if (polaroidTitle) polaroidTitle.innerText = "";
+                if (polaroidTitle) polaroidTitle.innerText = "Em construção";
                 const polaroidDesc = document.getElementById("Page3_PolaroidDescriptionText" + i)
                 if (polaroidDesc) polaroidDesc.innerText = "";
             }else{
@@ -298,7 +291,7 @@ export default class GeradorRoletaImagens{
     }
 
     StartTimer(){
-        if (this.roletaAtual == null) this.roletaAtual = document.getElementById("roleta" + this.paginaAtual) as HTMLDivElement;
+        this.roletaAtual = document.getElementById("roleta" + this.paginaAtual) as HTMLDivElement;
 
         this.changePageTimer = setInterval(() => {
             this.changeTimer += 150;
@@ -314,15 +307,15 @@ export default class GeradorRoletaImagens{
         this.changeTimer = 0;
         if (this.changePageTimer) clearInterval(this.changePageTimer);
         // this.ManipularPagina(0, "left");
-        this.ResetPaginaInicial();
-        this.ResetTimerCss();
+        // this.ResetPaginaInicial();
+        this.ResetTimerCss(0);
     }
-    ResetTimerCss(){
+    ResetTimerCss(novaPagina: number){
         document.querySelectorAll(".roletaPageIndicator").forEach(el => {
             const loader = el as HTMLDivElement
             const newPageId = parseInt(el.getAttribute("data-page") as string);
             const roletaLoading = (loader?.firstElementChild as HTMLDivElement);
-            if (newPageId < this.paginaAtual){
+            if (newPageId < novaPagina){
                 roletaLoading.style.width = "100%";
             }else{
                 roletaLoading.style.width = "0%";

@@ -36,9 +36,7 @@ export default class GeradorUniqueScreen {
                     mainContentDiv.style.overflowY = "hidden";
                 for (let i = 0; i < mainContentDiv.children.length; i++) {
                     const element = mainContentDiv.children[i];
-                    if (element.hasAttribute("spacer")) {
-                    }
-                    else {
+                    if (!element.hasAttribute("spacer")) {
                         element.classList.add("UniqueScreenPage");
                         const htmlFile = element.id;
                         let file = 'views/UniqueScreens/' + htmlFile + '.html';

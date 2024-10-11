@@ -1,15 +1,15 @@
 #PageSocialContent {
   position: relative;
   width: 100%;
-  height: calc(100% - 120px);
-  background-color: #eeeeee;
+  height: calc(100% - 60px);
+  background-color: #dddddd;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: all 200ms ease-in-out;
-  padding-top: 60px;
+  /* padding-top: 60px; */
   padding-bottom: 60px;
 }
 

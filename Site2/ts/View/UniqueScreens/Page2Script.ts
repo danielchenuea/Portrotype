@@ -20,36 +20,35 @@ export default class Page2Script implements ScreenOption{
     }
     
     screenSetupEvents = () => {
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: "#Page2Content",
-                start: "top 50%",
-                end: "top 55%",
-                toggleActions: "play none none reverse",
-                // scrub: true,
-                once: true,
-                markers: true,
-                onEnter: () => {
-                    this.onEnter();
-                }
-            },
-        });
+        // gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: "#Page2Content",
+        //         start: "top 50%",
+        //         end: "top 55%",
+        //         toggleActions: "play none none reverse",
+        //         once: true,
+        //         markers: true,
+        //         onEnter: () => {
+        //             this.onEnter();
+        //         }
+        //     },
+        // });
 
-        document.getElementById("Page2Content")?.addEventListener("click", (e) => {
-            const el = (e.target as HTMLElement);
-            const elTarget = el.closest(`.Page2Content_Column`);
-            const dataIndex = parseInt(el.getAttribute("data-index")!);
-            if (elTarget) {
-                this.SetInfoMode(dataIndex)
-            }
-        })
-        document.getElementById("Page2Content")?.addEventListener("click", (e) => {
-            const el = (e.target as HTMLElement);
-            const elTarget = el.closest(`#HeaderBackButton`);
-            if (elTarget) {
-                this.ResetInfoMode(true)
-            }
-        })
+        // document.getElementById("Page2Content")?.addEventListener("click", (e) => {
+        //     const el = (e.target as HTMLElement);
+        //     const elTarget = el.closest(`.Page2Content_Column`);
+        //     const dataIndex = parseInt(el.getAttribute("data-index")!);
+        //     if (elTarget) {
+        //         this.SetInfoMode(dataIndex)
+        //     }
+        // })
+        // document.getElementById("Page2Content")?.addEventListener("click", (e) => {
+        //     const el = (e.target as HTMLElement);
+        //     const elTarget = el.closest(`#HeaderBackButton`);
+        //     if (elTarget) {
+        //         this.ResetInfoMode(true)
+        //     }
+        // })
 
         // // Add custom css to each Column
         // document.querySelectorAll("#Page2Content .Page2Content_Column").forEach((column, i) => {
@@ -92,13 +91,6 @@ export default class Page2Script implements ScreenOption{
             duration: 0.2,
             ease: 'sine.inOut',
         })
-        // setTimeout(() => {
-        //     el.style.top = `-${el.clientHeight * (dataIndex)}px`
-        //     setTimeout(() => {
-        //         textElement.classList.remove("hidden");
-
-        //     }, (dataIndex * 100) + 200);
-        // }, 300);
     }
     
     ResetInfoMode = (useDelay: boolean) => {

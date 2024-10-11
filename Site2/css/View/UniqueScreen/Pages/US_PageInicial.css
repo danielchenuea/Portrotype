@@ -89,13 +89,6 @@
     left: 46%;
     z-index: -1;
 }
-.planetImage{
-    position: absolute;
-}
-.luaImage{
-    position: absolute;
-    animation: moonRotation 20s linear infinite none;
-}
 
 .pageInicial_flyingRocket{
     display: flex;

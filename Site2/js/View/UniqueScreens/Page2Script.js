@@ -5,35 +5,6 @@ export default class Page2Script {
         this.timeoutArr = [];
         this.screenName = "Page2";
         this.screenSetupEvents = () => {
-            var _a, _b;
-            gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#Page2Content",
-                    start: "top 50%",
-                    end: "top 55%",
-                    toggleActions: "play none none reverse",
-                    once: true,
-                    markers: true,
-                    onEnter: () => {
-                        this.onEnter();
-                    }
-                },
-            });
-            (_a = document.getElementById("Page2Content")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
-                const el = e.target;
-                const elTarget = el.closest(`.Page2Content_Column`);
-                const dataIndex = parseInt(el.getAttribute("data-index"));
-                if (elTarget) {
-                    this.SetInfoMode(dataIndex);
-                }
-            });
-            (_b = document.getElementById("Page2Content")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", (e) => {
-                const el = e.target;
-                const elTarget = el.closest(`#HeaderBackButton`);
-                if (elTarget) {
-                    this.ResetInfoMode(true);
-                }
-            });
         };
         this.onEnter = () => {
             this.ClearTimeout();
