@@ -1,0 +1,186 @@
+#Page4Content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* background-color: #d3d3d3; */
+  /* background: url("../../../src/spacebackground.jpg"); */
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.Page4Content_Wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 100%;
+  z-index: 5;
+}
+
+.Page4Content_Wrapper .Page4Content_Column {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 14%;
+  position: relative;
+
+  border-width: 2px;
+  border-style: solid;
+  border-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 1) 30%,
+      rgba(0, 0, 0, 1) 70%,
+      rgba(255, 255, 255, 0) 100%
+    )
+    100% 1;
+  border-left: none;
+  border-right: none;
+  margin-top: -2px;
+
+  transition: 400ms transform ease-in-out, 400ms opacity ease-in-out;
+  transform: translate(0px, 0px);
+  opacity: 1;
+  top: 0;
+}
+
+.Page4Content_Column.hiddenBefore {
+  transform: translate(-900px, 0);
+  opacity: 0;
+}
+.Page4Content_Column.hiddenAfter {
+  transform: translate(900px, 0px);
+  opacity: 0;
+}
+
+.Page4Content_Column::after {
+  content: "";
+  width: 110%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 1) 9%,
+    rgba(0, 0, 0, 1) 91%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  position: absolute;
+  opacity: 0.1;
+  transition: 100ms all ease-in-out;
+}
+.Page4Content_Column:hover::after {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.Page4Content_Filler {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 90%;
+  height: 100%;
+
+  background-color: #ffffff;
+  user-select: none;
+}
+.Page4Content_Filler::before {
+  content: "";
+  width: 10%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #ffffff);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-49%);
+}
+.Page4Content_Filler::after {
+  content: "";
+  width: 10%;
+  height: 100%;
+  background: linear-gradient(to left, transparent, #ffffff);
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateX(949%);
+}
+
+.Page4Content_TextWrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 80%;
+  height: calc(100% - 259px);
+  top: 262px;
+}
+
+.Page4Content_TextBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 80%;
+  height: 80%;
+  /* background-color: #b3b3b3; */
+  overflow: hidden;
+  /* transition: 300ms all ease-in-out; */
+  z-index: 10;
+}
+.Page4Content_TextBox.hidden {
+  height: 0;
+  z-index: 2;
+}
+
+.Page4Content_BoxHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100px;
+  /* background-color: #b3b3b3; */
+}
+.Page4Content_BackButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bolder;
+
+  width: 80px;
+  height: 80px;
+  margin-left: 10px;
+  background-color: #ffffff;
+  transition: 100ms all ease-in-out;
+  user-select: none;
+}
+.Page4Content_BackButton:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+
+.Page4Content_BoxContent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 100%;
+  height: 400px;
+  /* background-color: #b8b8b8; */
+}

@@ -4,6 +4,16 @@
     padding-left: 80px;
     padding-right: 80px;
   }
+  .Page3Content_PolaroidWrapper{
+    height: calc(80vh - 120px);
+  }
+  .Page3Content_PolaroidRow{
+    flex-direction: row;
+  }
+  .Page3Content_PolaroidPhoto{
+    max-width: 400px;
+    max-height: 300px;
+  }
 }
 
 /* <= 768PX */
@@ -12,12 +22,31 @@
     padding-left: 0px;
     padding-right: 0px;
   }
+  .Page3Content_PolaroidWrapper{
+    height: calc(160vh - 120px);
+  }
+  .Page3Content_PolaroidRow{
+    flex-direction: column;
+  }
+  .Page3Content_PolaroidPhoto{
+    max-width: 300px;
+    max-height: 200px;
+  }
+  /* .Page3Content_NavBarWrapper {
+
+  }
+  .Page3Content_PolaroidWrapper{
+
+  }
+  .Page3Content_BottomBarWrapper {
+    height: ;
+  } */
 }
 
 #Page3Content {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   background-color: #eeeeee;
   overflow: hidden;
   display: flex;
@@ -29,23 +58,17 @@
 .Page3Content_PolaroidWrapper {
   position: relative;
   width: 100%;
-  height: calc(80% - 120px);
-  /* padding-top: 56.25%; */
-  /* min-width: 1000px; */
-  /* aspect-ratio: 16/9; */
+  /* height: calc(80vh - 120px); */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  /* padding-top: 60px; */
 }
 .Page3Content_PolaroidRow {
   position: relative;
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
@@ -53,36 +76,23 @@
   position: relative;
   width: 100%;
   height: 80%;
-  /* padding-top: 10%; */
-  /* height: fit-content; */
   min-width: 120px;
-  /* padding: ; */
-  /* min-height: 90%; */
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: #b3b3b3; */
-  /* border-radius: 6px; */
-  margin-left: 2%;
-  margin-right: 2%;
+  margin: 5% 2%;
 }
 .Page3Content_PolaroidPhoto {
   position: relative;
   width: 100%;
-  /* height: 100%; */
   height: 76%;
-  /* aspect-ratio: 3/4; */
-  max-width: 400px;
-  max-height: 300px;
-  /* padding-bottom: 75%; */
+  /* max-width: 400px;
+  max-height: 300px; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* background-color: #b3b3b3; */
-  /* border-radius: 6px; */
 }
 .Page3Content_PolaroidBackground {
   position: absolute;
@@ -215,15 +225,15 @@
 .Page3Content_NavBarWrapper {
   position: relative;
   width: 100%;
-  height: 10%;
+  height: 10vh;
   margin-bottom: 30px;
   /* border-bottom: 1px solid #b3b3b3; */
 }
 .Page3Content_NavBarUnderline {
   position: absolute;
   bottom: 0;
-  left: 0%;
-  width: 100%;
+  left: 5%;
+  width: 90%;
   height: 2px;
   background-color: #bbbbbb;
   clip-path: inset(0 0%);
@@ -244,13 +254,13 @@
 }
 
 .Page3Content_BottomBarWrapper {
+  width: 100%;
+  height: 10vh;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
-  height: 10%;
   margin-bottom: 30px;
 }
 

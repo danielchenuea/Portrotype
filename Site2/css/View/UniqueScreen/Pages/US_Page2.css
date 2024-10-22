@@ -1,7 +1,7 @@
 #Page2Content {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   /* background-color: #d3d3d3; */
   /* background: url("../../../src/spacebackground.jpg"); */
   overflow: hidden;
@@ -24,168 +24,34 @@
   z-index: 5;
 }
 
-.Page2Content_Wrapper .Page2Content_Column {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 14%;
-  position: relative;
-
-  border-width: 2px;
-  border-style: solid;
-  border-image: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(0, 0, 0, 1) 30%,
-      rgba(0, 0, 0, 1) 70%,
-      rgba(255, 255, 255, 0) 100%
-    )
-    100% 1;
-  border-left: none;
-  border-right: none;
-  margin-top: -2px;
-
-  transition: 400ms transform ease-in-out, 400ms opacity ease-in-out;
-  transform: translate(0px, 0px);
-  opacity: 1;
-  top: 0;
-}
-
-.Page2Content_Column.hiddenBefore {
-  transform: translate(-900px, 0);
-  opacity: 0;
-}
-.Page2Content_Column.hiddenAfter {
-  transform: translate(900px, 0px);
-  opacity: 0;
-}
-
-.Page2Content_Column::after {
-  content: "";
-  width: 110%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 1) 9%,
-    rgba(0, 0, 0, 1) 91%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  position: absolute;
-  opacity: 0.1;
-  transition: 100ms all ease-in-out;
-}
-.Page2Content_Column:hover::after {
-  opacity: 0;
-  cursor: pointer;
-}
-
-.Page2Content_Filler {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
-  width: 90%;
-  height: 100%;
-
-  background-color: #ffffff;
-  user-select: none;
-}
-.Page2Content_Filler::before {
-  content: "";
-  width: 10%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, #ffffff);
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  transform: translateX(-49%);
-}
-.Page2Content_Filler::after {
-  content: "";
-  width: 10%;
-  height: 100%;
-  background: linear-gradient(to left, transparent, #ffffff);
-  position: absolute;
-  left: 0;
-  top: 0;
-  transform: translateX(949%);
-}
-
-.Page2Content_TextWrapper {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 80%;
-  height: calc(100% - 259px);
-  top: 262px;
-}
-
-.Page2Content_TextBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 80%;
-  height: 80%;
-  /* background-color: #b3b3b3; */
-  overflow: hidden;
-  /* transition: 300ms all ease-in-out; */
-  z-index: 10;
-}
-.Page2Content_TextBox.hidden {
-  height: 0;
-  z-index: 2;
-}
-
-.Page2Content_BoxHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  flex-shrink: 0;
-  width: 100%;
-  height: 100px;
-  /* background-color: #b3b3b3; */
-}
-.Page2Content_BackButton {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  font-weight: bolder;
-
-  width: 80px;
-  height: 80px;
-  margin-left: 10px;
-  background-color: #ffffff;
-  transition: 100ms all ease-in-out;
-  user-select: none;
-}
-.Page2Content_BackButton:hover {
-  cursor: pointer;
-  background-color: #f2f2f2;
-}
-
-.Page2Content_BoxContent {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-shrink: 0;
-  width: 100%;
-  height: 400px;
-  /* background-color: #b8b8b8; */
-}
-
 /* Sticker Section */
+/* >= 768PX */
+@media (min-width: 768px) {
+  .Page2_ContentWrapper {
+    width: 70%;
+    height: 70%;
+    top: 10%;
+    left: 15%
+  }
+  .Page2_StickerWrapper{
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* <= 768PX */
+@media (max-width: 767px) {
+  .Page2_ContentWrapper {
+    width: 100%;
+    height: 100%;
+    /* top: 10%; */
+    /* left: 15% */
+  }
+  .Page2_StickerWrapper{
+    width: 120px;
+    height: 120px;
+  }
+}
 
 
 .Page2_Background{
@@ -205,16 +71,15 @@
 }
 .Page2_StickerWrapper{
   position: absolute;
-  left: 15%;
-  top: 10%;
-  width: 200px;
-  height: 200px;
   z-index: 10;
+}
+.Page2_StickerWrapper.hidden{
+  display: none;
 }
 .Page2_Sticker{
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: inherit;
+  height: inherit;
   background-color: white;
 }
 
@@ -224,41 +89,44 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 70%;
+  width: 80%;
   height: 70%;
   top: 10%;
-  left: 15%
+  left: 10%
+}
+
+.Page2_StickerCloseHeader{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  right: -30px;
+  border-radius: 20px;
+  z-index: 10;
+}
+.Page2_StickerCloseHeader:hover{
+  cursor: pointer;
+  background-color: #f2f2f2;;
 }
 .Page2_StickerTextHeader{
-  position: relative;
+  position: absolute;
   width: 100%;
   background-color: lightgray;
   height: 20%;
+  top: 0px;
+  left: 0px;
 
 }
 .Page2_StickerTextBody{
-  position: relativerelative;
+  position: absolute;
   width: 100%;
   background-color: rgb(121, 121, 121);
   height: 80%;
-}
-
-.Page2_divTerra{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  width: 232px;
-  height: 232px;
-  top: 45%;
-  left: 46%;
-  z-index: -1;
-}
-.planetImage{
-  position: absolute;
-}
-.luaImage{
-  position: absolute;
-  animation: moonRotation 20s linear infinite none;
+  top: 20%;
 }
