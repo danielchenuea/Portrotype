@@ -47,7 +47,7 @@ export default class GeradorStickerMuseum{
             // ${this.Convert_CarrosselImagens_To_Html(this.GenerateCloneImages(this.imagensArray))}
             backgroundDiv.innerHTML = `
                 <div class="Page2_StickerBackground">
-                    ${this.GenerateStickers(this.stickerArray)}
+                    ${this.GenerateStickerHTMLFromArray(this.stickerArray)}
                     <div class="Page2_ContentWrapper">
                         <div class="Page2_StickerCloseHeader" id="Page2_StickerCloseHeader">X</div>
                         <div class="Page2_StickerTextHeader" id="Page2_StickerTextHeader" ></div>
@@ -58,13 +58,13 @@ export default class GeradorStickerMuseum{
 
             div.appendChild(backgroundDiv);
 
-            this.SetDefaultHtml();
-            this.EventsOnLoad();
+            this.SetDefaultGsap();
+            this.CarregarEventos();
         }
         return this;
     }
 
-    GenerateStickers(stickerArray: Sticker[]): string {
+    GenerateStickerHTMLFromArray(stickerArray: Sticker[]): string {
         let output = "";
 
         stickerArray.forEach((sticker, i) => {
@@ -77,7 +77,7 @@ export default class GeradorStickerMuseum{
         return output;
     }
 
-    SetDefaultHtml(){
+    SetDefaultGsap(){
         gsap.set(`.Page2_StickerTextHeader`, {
             width: "0%"
         })
@@ -89,12 +89,7 @@ export default class GeradorStickerMuseum{
         })
     }
     
-    /**
-     * Função que Configura os JQuery a serem utilizados pela classe.
-     * - Clicar no Fora do Modal faz o Modal se fechar.
-     * - Clicar no Modal impede que ele se feche.
-     */
-    private EventsOnLoad() {
+    private CarregarEventos() {
         let classThis = this;
 
         document.querySelector(`.Page2_StickerBackground`)?.addEventListener("click", function (e){
@@ -119,22 +114,22 @@ export default class GeradorStickerMuseum{
             })
             .to(`#${stickerId}`, {
                 left: "7.5%",
-                top: "7.5%",
+                top: "9%",
                 duration: 0.3,
                 onComplete: () => {
                     document.getElementById(stickerId)?.classList.add("displaced");
                 }
-            }, '<0.3')
+            }, '<0.25')
             .to(`.Page2_StickerTextHeader`, {
                 width: "100%",
                 duration: 0.2,
             }, '<0.2')
-            .to(`.Page2_StickerCloseHeader`, {
-                opacity: "1",
-                duration: 0.2,
-            }, '<')
             .to(`.Page2_StickerTextBody`, {
                 height: "80%",
+                duration: 0.2,
+            })
+            .to(`.Page2_StickerCloseHeader`, {
+                opacity: "1",
                 duration: 0.2,
             }, '<0.2')
             .then(() => {
@@ -151,13 +146,13 @@ export default class GeradorStickerMuseum{
                 duration: 0.2,
                 height: "0%"
             })            
-            .to(`.Page2_StickerCloseHeader`, {
-                opacity: "0",
-                duration: 0.2,
-            }, '<')
             .to(`.Page2_StickerTextHeader`, {
                 duration: 0.2,
                 width: "0%"
+            })
+            .to(`.Page2_StickerCloseHeader`, {
+                opacity: "0",
+                duration: 0.2,
             }, '<0.2')
             .to(displacedStickerElement, {
                 left: displacedSticker? displacedSticker.leftPosition + "%" : "0%",
@@ -166,7 +161,7 @@ export default class GeradorStickerMuseum{
                 onComplete: () => {
                     displacedStickerElement.classList.remove("displaced")
                 }
-            }, '<0.2')
+            }, '<0.1')
             .to(`.Page2_StickerWrapper`, {
                 opacity: 1,
                 duration: 0.3,

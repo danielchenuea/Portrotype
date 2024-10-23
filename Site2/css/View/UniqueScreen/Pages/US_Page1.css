@@ -15,7 +15,7 @@
   }
   .Page1_MovableTelescope{
     right: -260px;
-	  top: -70px;
+	  top: -90px;
     width: 256px;
     height: 256px;
   }
@@ -34,7 +34,7 @@
     width: 100%;
   }
   .Page1_Photo{
-    left: 15%;	
+    left: calc(50% - 200px);
     width: 200px;
     height: 200px;
   }

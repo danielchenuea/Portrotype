@@ -31,6 +31,12 @@
     width: calc(100% - 200px);
     height: calc(70% - 120px);
   }
+  .PageSocialContent_HeaderButton{
+    width: 100px;
+  }
+  .PageSocialContent_HeaderButton > i{
+    font-size: 3em;
+  }
 }
 
 /* <= 768PX */
@@ -50,6 +56,12 @@
     padding: 20px 40px;
     width: calc(100% - 80px);
     height: calc(70% - 40px);
+  }
+  .PageSocialContent_HeaderButton{
+    width: 60px;
+  }
+  .PageSocialContent_HeaderButton > i{
+    font-size: 2em;
   }
 }
 
@@ -123,7 +135,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  /* width: 100px; */
   height: 100px;
   background-color: #fff;
   border-right: 2px solid #d9d9d9;
@@ -137,7 +149,7 @@
   background-color: #555;
 }
 .PageSocialContent_HeaderButton > i {
-  font-size: 3em;
+  /* font-size: 3em; */
   transition: all 100ms ease-in-out;
   color: #555;
 }
