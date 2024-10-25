@@ -19,14 +19,14 @@
     height: 100px;
     color: white;
     top: 0;
-    right: 30px;
+    right: 0px;
     z-index: 20;
     background-color: #0000;
     border-bottom-left-radius: 4px;
     transition: 150ms ease-in-out background-color;
 }
 .MainOverlay_Button:hover{
-    background-color: #fff1;
+    background-color: #fff3;
     cursor: pointer;
 }
 .MainOverlay_Button i{
@@ -52,13 +52,34 @@
 
 /* Central Planet */
 
+/* >= 768PX */
+@media (min-width: 768px) {
+    .MainOverlay_CentralPlanet{
+        height: 400px;
+        width: 400px;
+        left: calc(50% - 200px);
+        top: calc(50% - 200px);
+    }
+}
+  
+  /* <= 768PX */
+  @media (max-width: 767px) {
+    .MainOverlay_CentralPlanet{
+        height: 200px;
+        width: 200px;
+        left: calc(50% - 100px);
+        top: calc(50% - 100px);
+    }
+}
+
+
 .MainOverlay_CentralPlanet{
     position: absolute;
-    height: 400px;
+    z-index: 5;
+    /* height: 400px;
     width: 400px;
     left: calc(50% - 200px);
-    top: calc(50% - 200px);
-    z-index: 5;
+    top: calc(50% - 200px); */
 }
 .CentralPlanet_OuterCircle{
     position: absolute;
@@ -113,14 +134,37 @@
 
 
 /* Orbital Planet */
+
+/* >= 768PX */
+@media (min-width: 768px) {
+    .MainOverlay_OrbitalPlanet{
+        height: 180px;
+        width: 180px;
+        left: calc(30% - 180px);
+        top: calc(40% - 180px);
+        animation: orbitalTranslationBig 20s ease-in-out infinite forwards;
+        animation-delay: -20s;
+    }
+}
+  
+  /* <= 768PX */
+  @media (max-width: 767px) {
+    .MainOverlay_OrbitalPlanet{
+        height: 90px;
+        width: 90px;
+        left: calc(30% - 90px);
+        top: calc(40% - 90px);
+        animation: orbitalTranslationSmall 20s ease-in-out infinite forwards;
+        animation-delay: -20s;
+    }
+}
+
 .MainOverlay_OrbitalPlanet{
     position: absolute;
-    height: 180px;
+    /* height: 180px;
     width: 180px;
     left: calc(30% - 180px);
-    top: calc(40% - 180px);
-    animation: orbitalTranslation 20s ease-in-out infinite forwards;
-    animation-delay: -20s;
+    top: calc(40% - 180px); */
 }
 .OrbitalPlanet_OuterCircle{
     position: absolute;
@@ -132,14 +176,14 @@
 
 }
 
-@keyframes orbitalTranslation {
+@keyframes orbitalTranslationBig {
     0%{
         left: calc(30% - 180px);
         top: calc(40% - 180px);
         z-index: 6;
         scale: 1;
-    clip-path: circle(50% at 50% 50%);
-    background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
+        clip-path: circle(50% at 50% 50%);
+        background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
     }
     25%{
         scale: 1.2;
@@ -148,12 +192,11 @@
         z-index: 6;
     }
     50%{
-        left: calc(75% - 180px);
-        top: calc(65% - 180px);
+        left: calc(85% - 180px);
+        top: calc(75% - 180px);
         z-index: 4;
         scale: 1;
-    clip-path: circle(50% at 50% 50%);
-    background: radial-gradient(circle at 25% 25%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
+        clip-path: circle(50% at 50% 50%);
 
     }
     75%{
@@ -167,9 +210,47 @@
         top: calc(40% - 180px);
         z-index: 6;
         scale: 1;
-    clip-path: circle(50% at 50% 50%);
-    background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
+        clip-path: circle(50% at 50% 50%);
+        background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
 
+    }
+}
+
+@keyframes orbitalTranslationSmall {
+    0%{
+        left: calc(30% - 90px);
+        top: calc(40% - 90px);
+        z-index: 6;
+        scale: 1;
+        clip-path: circle(50% at 50% 50%);
+        background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
+    }
+    25%{
+        scale: 1.2;
+    }
+    49%{
+        z-index: 6;
+    }
+    50%{
+        left: calc(85% - 90px);
+        top: calc(75% - 90px);
+        z-index: 4;
+        scale: 1;
+        clip-path: circle(50% at 50% 50%);
+    }
+    75%{
+        scale: 0.8;
+    }
+    99%{
+        z-index: 4;
+    }
+    100%{
+        left: calc(30% - 90px);
+        top: calc(40% - 90px);
+        z-index: 6;
+        scale: 1;
+        clip-path: circle(50% at 50% 50%);
+        background: radial-gradient(circle at 75% 75%, rgba(20,13,55,1) 0%, rgba(35,35,107,1) 100%);
     }
 }
 
@@ -249,7 +330,7 @@
     justify-content: center;
     width: 60%;
     height: 100px;
-    background-color: #fff0;
+    background-color: #ffffff03;
     transition: background-color 80ms ease-in-out;
     border: 2px solid #fff;
     margin-top: -2px;
@@ -258,7 +339,7 @@
 
 }
 .MainOverlay_AnchorLink:hover{
-    background-color: #fff2;
+    background-color: #fff4;
     cursor: pointer;
 }
 .MainOverlay_AnchorIcon{

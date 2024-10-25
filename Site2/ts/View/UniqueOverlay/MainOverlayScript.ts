@@ -127,6 +127,7 @@ export default class MainOverlayScript implements OverlayOption{
         const sizes = ['plus', 'medium', 'small'];
         const speed = ['fast', 'normal', 'slow', 'normal', 'slow'];
         const colors = ['c_blue', 'c_red', 'c_green', 'c_yellow'];
+        const zIndex = ['3', '7'];
         
         const Rand = (min: number, max: number) => {
           return Math.floor((Math.random() * max) + min);
@@ -137,12 +138,16 @@ export default class MainOverlayScript implements OverlayOption{
             // Random styles
             const newStar = document.createElement("div");
             newStar.innerHTML = `<img src="../../src/meteor.png"/>`;
+
+            const sizeEl = Rand(0, sizes.length);
+            const speedEl = Rand(0, speed.length);
+            const colorEl = Rand(0, colors.length);
+
             newStar.classList.add(
                 "MainOverlay_RandomMeteor",
-                // shapes[Rand(0,shapes.length)],
-                sizes[Rand(0,sizes.length)],
-                speed[Rand(0,speed.length)],
-                colors[Rand(0,colors.length)]
+                sizes[sizeEl],
+                speed[speedEl],
+                colors[colorEl]
             )
             if (i < nbElements / 2){
                 newStar.style.top = `${Rand(0, 70) - 25}%`;
@@ -153,11 +158,17 @@ export default class MainOverlayScript implements OverlayOption{
                 newStar.style.left = `${Rand(0, 110) - 25}%`;
             }
             newStar.style.animationDelay = `${Rand(0, 30) - 40}s`;
-            // newStar.style.animat
 
-            
+            if (sizes[sizeEl] == "plus"){
+                newStar.style.zIndex = `${zIndex[1]}`
+            }else if (sizes[sizeEl] == "medium"){
+                newStar.style.zIndex = `${zIndex[Rand(0, zIndex.length)]}`
+            }else{
+                newStar.style.zIndex = `${zIndex[0]}`
+            }
+
             const overlayBackground = document.getElementById("MainOverlay_Mask")!;
-            // overlayBackground.appendChild(newStar);
+            overlayBackground.appendChild(newStar);
         }
     }
 }

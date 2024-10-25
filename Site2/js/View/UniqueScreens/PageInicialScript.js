@@ -74,6 +74,7 @@ export default class PageInicialScript {
         });
         this.screenSetupEvents = () => {
             const mask = document.getElementById("pageInicialMask");
+            const planet = document.getElementById('divPlanet');
             let tlShow = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#pageInicialMask",
@@ -96,8 +97,10 @@ export default class PageInicialScript {
                 opacity: 0,
                 duration: 0.4,
             });
-            const xTo = gsap.quickTo('.pageInicial_flyingRocket', "x", { duration: 0.6, ease: "power3" });
-            const yTo = gsap.quickTo('.pageInicial_flyingRocket', "y", { duration: 0.6, ease: "power3" });
+            window.addEventListener('scroll', () => {
+                const valueY = window.scrollY;
+                planet.style.marginTop = `${valueY * 0.25}px`;
+            });
             mask.addEventListener("mousemove", lodash.throttle((event) => {
                 const mask = document.getElementById("pageInicialMask");
                 const { left, top } = event.target.closest(".pageInicial_BackgroundMask").getBoundingClientRect();
@@ -107,10 +110,8 @@ export default class PageInicialScript {
                     '--x-position': `${x}px`,
                     '--y-position': `${y}px`,
                     duration: 0.3,
-                    ease: 'sine.out',
+                    ease: 'sine.inOut',
                 });
-                xTo(event.clientX - left - 50);
-                yTo(event.clientY - top - 50);
             }, 50));
             this.InitiatePage();
         };

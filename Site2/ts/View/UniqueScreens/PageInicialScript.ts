@@ -83,6 +83,7 @@ export default class PageInicialScript implements ScreenOption{
     screenSetupEvents = () => {
         // this.FirstTime();
         const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
+        const planet = document.getElementById('divPlanet') as HTMLDivElement;
 
         let tlShow = gsap.timeline({
             scrollTrigger: {
@@ -110,13 +111,19 @@ export default class PageInicialScript implements ScreenOption{
             duration: 0.4,
         });
         
-        const xTo = gsap.quickTo('.pageInicial_flyingRocket', "x", {duration: 0.6, ease: "power3"});
-        const yTo = gsap.quickTo('.pageInicial_flyingRocket', "y", {duration: 0.6, ease: "power3"});
+        // const xTo = gsap.quickTo('.pageInicial_flyingRocket', "x", {duration: 0.6, ease: "power3"});
+        // const yTo = gsap.quickTo('.pageInicial_flyingRocket', "y", {duration: 0.6, ease: "power3"});
 
         // window.addEventListener("mousemove", lodash.throttle((event: MouseEvent) => {
         //     xTo(event.clientX - 50);
         //     yTo(event.clientY - 50);
         // }, 50));
+
+        window.addEventListener('scroll', () => {
+            const valueY = window.scrollY;
+
+            planet.style.marginTop = `${valueY * 0.25}px`;
+        })
 
         mask.addEventListener("mousemove", lodash.throttle((event: MouseEvent) => {
             const mask = document.getElementById("pageInicialMask") as HTMLDivElement; 
@@ -127,19 +134,11 @@ export default class PageInicialScript implements ScreenOption{
                 '--x-position': `${x}px`,
                 '--y-position': `${y}px`,
                 duration: 0.3,
-                ease: 'sine.out',
+                ease: 'sine.inOut',
             })
 
-            xTo(event.clientX - left - 50);
-            yTo(event.clientY - top - 50);
-
-            // let maskBoundingRect = mask.getBoundingClientRect();
-            // let maskCenter= {
-            //     x: maskBoundingRect.left + maskBoundingRect.width/2, 
-            //     y: maskBoundingRect.top + maskBoundingRect.height/2
-            // };
-            // let angle = Math.atan2(event.pageX - maskCenter.x, - (event.pageY - maskCenter.y) )*(180 / Math.PI);      
-            // (document.querySelector(".pageInicial_flyingRocket")! as HTMLDivElement).style!.transform = `rotate(${angle}deg)`;  
+            // xTo(event.clientX - left - 50);
+            // yTo(event.clientY - top - 50); 
         }, 50))
         this.InitiatePage();
         // this.GenerateStars();
